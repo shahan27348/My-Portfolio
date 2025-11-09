@@ -7,7 +7,7 @@ interface ObserverOptions {
 }
 
 const useIntersectionObserver = (
-  elementRef: RefObject<Element>,
+  elementRef: RefObject<Element | null>,
   options: ObserverOptions,
   triggerOnce: boolean = true
 ): boolean => {

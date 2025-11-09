@@ -123,6 +123,7 @@ export const ParticleField: React.FC = () => {
           count={count}
           array={positions}
           itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.05} color="#64ffda" transparent opacity={0.6} />

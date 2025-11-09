@@ -4,7 +4,6 @@ import { GitHubIcon, ExternalLinkIcon } from "@/components/icons";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 const SectionTitle: React.FC<{ number: string; title: string }> = ({
-  number,
   title,
 }) => (
   <h2 className="text-3xl font-bold text-slate-light mb-12 flex items-center whitespace-nowrap">

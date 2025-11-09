@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import CodeBlock from "@/components/ui/CodeBlock";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const SectionTitle: React.FC<{ number: string; title: string }> = ({
@@ -50,25 +49,6 @@ const SectionTitle: React.FC<{ number: string; title: string }> = ({
 
 const About: React.FC = () => {
   const { themeStyle } = useTheme();
-
-  const bioCode = [
-    "const developer = {",
-    '  name: "Muhammad Shahan",',
-    '  location: "Lahore, Pakistan",',
-    '  role: "Full Stack Developer",',
-    '  company: "Ichonic Inc",',
-    "  interests: [",
-    '    "Web Development",',
-    '    "UI/UX Design",',
-    '    "Open Source",',
-    '    "Gaming 🎮"',
-    "  ],",
-    '  currentlyLearning: "Three.js & WebGL",',
-    '  funFact: "Started with Tumblr themes in 2023!"',
-    "};",
-    "",
-    "export default developer;",
-  ];
 
   return (
     <AnimatedSection>

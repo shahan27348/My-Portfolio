@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import useTypewriter from "@/hooks/useTypewriter";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
-import TypingCodeAnimation from "@/components/ui/TypingCodeAnimation";
-import TerminalWindow from "@/components/ui/TerminalWindow";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const Home: React.FC = () => {
@@ -22,23 +20,6 @@ const Home: React.FC = () => {
 
   const nameText = "Muhammad Shahan.";
   const roleText = "I build things for the web.";
-
-  const codeSnippet = [
-    "// Welcome to my portfolio",
-    "const developer = {",
-    '  name: "Muhammad Shahan",',
-    '  role: "Full Stack Developer",',
-    '  location: "Pakistan",',
-    '  skills: ["React", "Node.js", "TypeScript", "MongoDB"],',
-    '  passion: () => "Building amazing digital experiences"',
-    "};",
-    "",
-    "function createInnovation() {",
-    "  const ideas = brainstorm();",
-    "  const solutions = ideas.map(idea => implement(idea));",
-    "  return solutions.filter(s => s.isAwesome());",
-    "}",
-  ];
 
   const { displayText: displayName, isFinished: nameIsFinished } =
     useTypewriter(nameText, 100, isVisible);

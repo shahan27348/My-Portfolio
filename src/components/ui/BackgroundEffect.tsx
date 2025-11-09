@@ -73,6 +73,7 @@ const BackgroundEffect: React.FC = () => {
       }
 
       update() {
+        if (!canvas) return;
         if (this.x > canvas.width || this.x < 0) {
           this.speedX = -this.speedX;
         }

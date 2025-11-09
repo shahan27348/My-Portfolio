@@ -5,8 +5,8 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 const SectionTitle: React.FC<{
   number: string;
   title: string;
-  subtitle: string;
-}> = ({ number, title, subtitle }) => (
+  subtitle?: string;
+}> = ({ title, subtitle }) => (
   <div className="text-center mb-12">
     <h2 className="text-3xl font-bold text-slate-light flex items-center justify-center whitespace-nowrap">
       {title}
