@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ===== CODING THEME (Dark Only - VS Code Style) ===== */
+  :root.coding,
+  html.coding {
+    --color-primary: #0d1117;
+    --color-secondary: #161b22;
+    --color-tertiary: #21262d;
+    --color-accent: #58a6ff;
+    --color-slate-light: #c9d1d9;
+    --color-slate-dark: #8b949e;
+    --color-accent-rgb: 88, 166, 255;
+    --color-slate-dark-rgb: 139, 148, 158;
+  }
+
+  /* ===== COLORFUL THEME (Bright & Vibrant) ===== */
+  :root.colorful,
+  html.colorful {
+    --color-primary: #ffffff;
+    --color-secondary: #fdf4ff;
+    --color-tertiary: #f3e8ff;
+    --color-accent: #ec4899;
+    --color-slate-light: #1f2937;
+    --color-slate-dark: #6b7280;
+    --color-accent-rgb: 236, 72, 153;
+    --color-slate-dark-rgb: 107, 114, 128;
+  }
+
+  /* ===== NEWSPAPER THEME (Classic Print - Light) ===== */
+  :root.newspaper,
+  html.newspaper {
+    --color-primary: #faf8f3;
+    --color-secondary: #ffffff;
+    --color-tertiary: #e5e1d8;
+    --color-accent: #c41e3a;
+    --color-slate-light: #1a1a1a;
+    --color-slate-dark: #666666;
+    --color-accent-rgb: 196, 30, 58;
+    --color-slate-dark-rgb: 102, 102, 102;
+  }
+
+  /* Default fallback (coding theme) */
+  :root {
+    --color-primary: #0d1117;
+    --color-secondary: #161b22;
+    --color-tertiary: #21262d;
+    --color-accent: #58a6ff;
+    --color-slate-light: #c9d1d9;
+    --color-slate-dark: #8b949e;
+    --color-accent-rgb: 88, 166, 255;
+    --color-slate-dark-rgb: 139, 148, 158;
+  }
+
+  body {
+    background-color: var(--color-primary);
+    color: var(--color-slate-light);
+    cursor: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Coding theme - Monospace fonts */
+  html.coding body {
+    font-family: "Fira Code", "Consolas", "Monaco", "Courier New", monospace;
+  }
+
+  /* Colorful theme - Modern rounded sans-serif */
+  html.colorful body {
+    font-family: "Poppins", "Inter", "Segoe UI", sans-serif;
+  }
+
+  /* Newspaper theme - Classic serif */
+  html.newspaper body {
+    font-family: "Crimson Text", "Merriweather", "Georgia", serif;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  a,
+  button {
+    cursor: none !important;
+  }
+}
+
+@layer utilities {
+  .typewriter-cursor::after {
+    content: "|";
+    color: var(--color-accent);
+    animation: blink 1s step-end infinite;
+    margin-left: 0.125em;
+  }
+
+  @keyframes blink {
+    from,
+    to {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Newspaper theme special styles */
+  html.newspaper .newspaper-heading {
+    font-family: "Playfair Display", "Georgia", serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    border-bottom: 3px double currentColor;
+    padding-bottom: 0.5rem;
+  }
+
+  html.newspaper .newspaper-border {
+    border-style: double;
+    border-width: 3px;
+  }
+
+  html.newspaper .newspaper-divider {
+    border-top: 2px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    padding: 0.25rem 0;
+  }
+
+  html.newspaper .newspaper-column {
+    column-count: 2;
+    column-gap: 2rem;
+    text-align: justify;
+  }
+
+  /* Colorful theme animations & styles */
+  html.colorful .colorful-gradient {
+    background: linear-gradient(
+      135deg,
+      #667eea 0%,
+      #764ba2 25%,
+      #f093fb 50%,
+      #4facfe 75%,
+      #00f2fe 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  html.colorful .colorful-card {
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  html.colorful .colorful-button {
+    border-radius: 9999px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Coding theme keeps existing styles */
+  html.coding .coding-terminal {
+    font-family: "Fira Code", monospace;
+    background: #161b22;
+    border: 1px solid #30363d;
+  }
+
+  html.coding .coding-line-number {
+    display: inline-block;
+    width: 3ch;
+    text-align: right;
+    margin-right: 1rem;
+    color: #8b949e;
+    user-select: none;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}

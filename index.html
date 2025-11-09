@@ -2,101 +2,53 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230a192f"/><text x="50" y="55" font-family="monospace" font-size="50" font-weight="bold" fill="%2364ffda" text-anchor="middle" dominant-baseline="middle">MS</text></svg>' />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230a192f"/><text x="50" y="55" font-family="monospace" font-size="50" font-weight="bold" fill="%2364ffda" text-anchor="middle" dominant-baseline="middle">MS</text></svg>'
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A modern, single-page professional portfolio built with React, TypeScript, and Tailwind CSS to showcase skills, experience, and projects." />
-    <meta name="keywords" content="Portfolio, React, TypeScript, Tailwind CSS, Frontend Developer, Web Developer, Projects, Skills, Experience, Muhammad Shahan" />
-    <title>Professional Portfolio</title>
-    <style>
-      :root {
-        --color-primary: #f0f2f5;
-        --color-secondary: #ffffff;
-        --color-tertiary: #e9ebee;
-        --color-accent: #0866ff;
-        --color-slate-light: #050505;
-        --color-slate-dark: #65676b;
-        /* RGB values for canvas */
-        --color-accent-rgb: 8, 102, 255;
-        --color-slate-dark-rgb: 101, 103, 107;
-      }
-      html.dark {
-        --color-primary: #0a192f;
-        --color-secondary: #112240;
-        --color-tertiary: #233554;
-        --color-accent: #64ffda;
-        --color-slate-light: #ccd6f6;
-        --color-slate-dark: #8892b0;
-        /* RGB values for canvas */
-        --color-accent-rgb: 100, 255, 218;
-        --color-slate-dark-rgb: 136, 146, 176;
-      }
-      body {
-        background-color: var(--color-primary);
-        color: var(--color-slate-dark);
-      }
-      .typewriter-cursor::after {
-        content: '|';
-        color: var(--color-accent);
-        animation: blink 1s step-end infinite;
-        margin-left: 0.125em;
-      }
+    <meta
+      name="description"
+      content="Full Stack Developer specializing in React, TypeScript, Next.js, and modern web technologies. Building exceptional digital experiences."
+    />
+    <meta
+      name="keywords"
+      content="Full Stack Developer, React Developer, TypeScript, Next.js, Frontend Development, Web Development, Portfolio, Muhammad Shahan"
+    />
+    <meta name="author" content="Muhammad Shahan" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourname.me/" />
+    <meta
+      property="og:title"
+      content="Muhammad Shahan - Full Stack Developer"
+    />
+    <meta
+      property="og:description"
+      content="Full Stack Developer specializing in React, TypeScript, Next.js, and modern web technologies."
+    />
+    <meta property="og:image" content="https://yourname.me/og-image.jpg" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://yourname.me/" />
+    <meta
+      property="twitter:title"
+      content="Muhammad Shahan - Full Stack Developer"
+    />
+    <meta
+      property="twitter:description"
+      content="Full Stack Developer specializing in React, TypeScript, Next.js, and modern web technologies."
+    />
+    <meta property="twitter:image" content="https://yourname.me/og-image.jpg" />
+    <title>Muhammad Shahan - Full Stack Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-      @keyframes blink {
-        from, to {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
-    </style>
-    <script>
-      (function() {
-        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              'primary': 'var(--color-primary)',
-              'secondary': 'var(--color-secondary)',
-              'tertiary': 'var(--color-tertiary)',
-              'accent': 'var(--color-accent)',
-              'slate-light': 'var(--color-slate-light)',
-              'slate-dark': 'var(--color-slate-dark)',
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['Fira Code', 'monospace'],
-            },
-          },
-        },
-      }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.1.1/",
-    "react": "https://aistudiocdn.com/react@^19.1.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-    "@google/genai": "https://esm.sh/@google/genai@0.14.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
