@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 interface CodeBlockProps {
   code: string[];
@@ -15,24 +14,10 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   className = "",
 }) => {
   const getLanguageColor = () => {
-    switch (language.toLowerCase()) {
-      case "tsx":
-      case "typescript":
-        return "text-blue-400";
-      case "jsx":
-      case "javascript":
-        return "text-yellow-400";
-      case "python":
-        return "text-green-400";
-      case "css":
-        return "text-purple-400";
-      default:
-        return "text-accent";
-    }
+    return "text-white";
   };
 
   const getSyntaxHighlight = (line: string, index: number) => {
-    // Simple syntax highlighting
     const keywords = [
       "const",
       "let",
@@ -53,46 +38,39 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
     let processedLine = line;
 
-    // Highlight strings
     strings.forEach((str, i) => {
       processedLine = processedLine.replace(str, `__STRING_${i}__`);
     });
 
-    // Highlight comments
     comments.forEach((comment, i) => {
       processedLine = processedLine.replace(comment, `__COMMENT_${i}__`);
     });
 
-    // Highlight keywords
     keywords.forEach((keyword) => {
       const regex = new RegExp(`\\b${keyword}\\b`, "g");
       processedLine = processedLine.replace(regex, `__KEYWORD_${keyword}__`);
     });
 
-    // Reconstruct with colors
     let finalLine = processedLine;
 
-    // Replace keywords
     keywords.forEach((keyword) => {
       finalLine = finalLine.replace(
         `__KEYWORD_${keyword}__`,
-        `<span class="text-purple-400 font-semibold">${keyword}</span>`
+        `<span class="text-white font-semibold">${keyword}</span>`,
       );
     });
 
-    // Replace strings
     strings.forEach((str, i) => {
       finalLine = finalLine.replace(
         `__STRING_${i}__`,
-        `<span class="text-green-400">${str}</span>`
+        `<span class="text-white/80">${str}</span>`,
       );
     });
 
-    // Replace comments
     comments.forEach((comment, i) => {
       finalLine = finalLine.replace(
         `__COMMENT_${i}__`,
-        `<span class="text-gray-500 italic">${comment}</span>`
+        `<span class="text-gray-500 italic">${comment}</span>`,
       );
     });
 
@@ -106,20 +84,16 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <div
       className={`bg-secondary/80 backdrop-blur-sm rounded-lg overflow-hidden border border-tertiary shadow-2xl ${className}`}
     >
       {/* Code Editor Header */}
       <div className="bg-tertiary/50 px-4 py-2 flex items-center justify-between border-b border-tertiary/50">
         <div className="flex items-center space-x-3">
           <div className="flex space-x-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <div className="w-3 h-3 rounded-full bg-white/30" />
+            <div className="w-3 h-3 rounded-full bg-white/50" />
+            <div className="w-3 h-3 rounded-full bg-white/70" />
           </div>
           <div className="text-slate-light text-sm font-mono">{fileName}</div>
         </div>
@@ -146,7 +120,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

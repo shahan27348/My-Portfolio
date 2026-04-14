@@ -1,5 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface TerminalWindowProps {
   title?: string;
@@ -12,12 +16,28 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
   children,
   className = "",
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      gsap.from(ref.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      });
+    },
+    { scope: ref },
+  );
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <div
+      ref={ref}
       className={`bg-secondary/50 backdrop-blur-sm rounded-lg overflow-hidden border border-tertiary shadow-xl ${className}`}
     >
       {/* Terminal Header */}
@@ -28,12 +48,12 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
           <div className="w-3 h-3 rounded-full bg-green-500" />
         </div>
         <div className="text-slate-dark text-sm font-mono">{title}</div>
-        <div className="w-20" /> {/* Spacer for centering */}
+        <div className="w-20" />
       </div>
 
       {/* Terminal Content */}
       <div className="p-6 font-mono text-sm md:text-base">{children}</div>
-    </motion.div>
+    </div>
   );
 };
 

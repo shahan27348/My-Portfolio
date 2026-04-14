@@ -38,7 +38,19 @@ export const RESUME_DATA = {
         "Collaborate with designers and backend developers to create seamless user experiences",
         "Worked on three products for Wix App Market",
       ],
-      technologies: ["React", "TypeScript","JavaScript", "Node.js", "MongoDB", "MUI","Next.js","Framer Motion","shadcn","Wix authentication","Redux"],
+      technologies: [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "MongoDB",
+        "MUI",
+        "Next.js",
+        "Framer Motion",
+        "shadcn",
+        "Wix authentication",
+        "Redux",
+      ],
     },
     // Add more work experience here
   ],
@@ -176,7 +188,7 @@ ${education
 - ${edu.degree} at ${edu.institution} (${edu.duration})
   Location: ${edu.location}
   GPA: ${edu.gpa}
-`
+`,
   )
   .join("\n")}
 
@@ -189,7 +201,7 @@ Duration: ${work.duration} | Location: ${work.location}
 Key Responsibilities:
 ${work.responsibilities.map((r) => `  - ${r}`).join("\n")}
 Technologies: ${work.technologies.join(", ")}
-`
+`,
   )
   .join("\n")}
 
@@ -210,7 +222,7 @@ Technologies: ${project.technologies.join(", ")}
 Key Features:
 ${project.highlights.map((h) => `  - ${h}`).join("\n")}
 Links: Live: ${project.liveUrl} | GitHub: ${project.githubUrl}
-`
+`,
   )
   .join("\n")}
 

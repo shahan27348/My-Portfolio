@@ -35,7 +35,7 @@ const Skills: React.FC = () => {
                       <span className="text-accent mr-3">▹</span>
                       {skill.name}
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>

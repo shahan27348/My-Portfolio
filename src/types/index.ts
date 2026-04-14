@@ -12,10 +12,12 @@ export interface Skill {
 
 export enum SkillCategory {
   Frontend = "Frontend",
+  StyleAndDesign = "Style & Design",
   Backend = "Backend",
   Databases = "Databases",
   Tools = "Tools & Platforms",
   Ai = "Ai Skills",
+  Animation = "Animation",
 }
 
 export interface Project {

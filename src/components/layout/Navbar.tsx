@@ -1,199 +1,161 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { NAV_LINKS } from "@/constants";
-import ThemeStyleSelector from "@/components/ui/ThemeStyleSelector";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
+
+const PRIMARY_LINKS = [
+  { name: "Home", href: "#home" },
+  { name: "Projects", href: "#projects" },
+  { name: "About", href: "#about" },
+  { name: "Contact", href: "/contact" },
+];
+
+const SOCIAL_LINKS = [
+  { name: "GitHub", href: "https://github.com/shahan27348" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-shahan/" },
+  { name: "YouTube", href: "https://www.youtube.com/@ThinkFlowAi" },
+  { name: "Instagram", href: "https://www.instagram.com/shahan059/" },
+  { name: "TikTok", href: "https://www.tiktok.com/@shahan_348" },
+];
 
 const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { themeStyle } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const [onHero, setOnHero] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const onScroll = () => setOnHero(window.scrollY < window.innerHeight * 0.8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const close = () => setIsOpen(false);
+  const navigate = useNavigate();
+
+  const handlePrimaryClick = (href: string) => {
+    close();
+    if (href.startsWith("/")) {
+      navigate(href);
+    }
   };
 
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-secondary/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      } ${
-        themeStyle === "coding"
-          ? "border-b border-tertiary/50"
-          : themeStyle === "colorful"
-          ? "border-b-4 border-accent/20"
-          : "border-b-2 border-slate-dark/30"
-      }`}
-    >
-      <div className="container mx-auto flex items-center justify-between p-4">
-        <motion.div
-          className={`text-2xl font-bold text-accent transition-transform duration-300 ${
-            themeStyle === "coding"
-              ? "font-mono"
-              : themeStyle === "colorful"
-              ? "font-bold"
-              : "font-serif"
-          }`}
-          whileHover={{ scale: 1.05 }}
-        >
-          <a href="#home" className="flex items-center gap-2">
-            {themeStyle === "coding" && (
-              <>
-                <span className="text-slate-dark">&lt;</span>
-                MS
-                <span className="text-slate-dark">/&gt;</span>
-              </>
-            )}
-            {themeStyle === "colorful" && (
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-                Muhammad Shahan
-              </span>
-            )}
-            {themeStyle === "newspaper" && (
-              <span className="newspaper-heading text-lg">MS Paper</span>
-            )}
-          </a>
-        </motion.div>
-        <nav className="hidden md:flex items-center space-x-6">
-          {NAV_LINKS.map((link, index) => {
-            // Colorful theme: different color for each link
-            const colorfulColors = [
-              "text-pink-500 hover:text-pink-600",
-              "text-purple-500 hover:text-purple-600",
-              "text-blue-500 hover:text-blue-600",
-              "text-green-500 hover:text-green-600",
-              "text-orange-500 hover:text-orange-600",
-              "text-indigo-500 hover:text-indigo-600",
-              "text-yellow-500 hover:text-yellow-600",
-              "text-red-500 hover:text-red-600",
-            ];
+  /* text colour for the slim bar: dark on the light hero, white elsewhere */
+  const barColor = onHero && !isOpen ? "text-[#D3D3D3]" : "text-white";
 
-            return (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className={`transition-colors duration-300 text-sm relative group ${
-                  themeStyle === "coding"
-                    ? "font-mono text-slate-light hover:text-accent"
-                    : themeStyle === "colorful"
-                    ? `font-semibold ${
-                        colorfulColors[index % colorfulColors.length]
-                      }`
-                    : "font-serif text-slate-light hover:text-accent"
-                }`}
-                whileHover={{ y: -2 }}
-              >
-                
-                {link.name}
-                <span
-                  className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    themeStyle === "colorful" ? "bg-current" : "bg-accent"
-                  }`}
-                />
-              </motion.a>
-            );
-          })}
-          <motion.a
-            href="/assets/pdf.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-sm text-accent border border-accent px-4 py-2 hover:bg-accent/10 transition-all duration-300 ${
-              themeStyle === "coding"
-                ? "font-mono rounded"
-                : themeStyle === "colorful"
-                ? "colorful-button rounded-full font-bold"
-                : "font-serif newspaper-border"
-            }`}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 0 15px var(--color-accent)",
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {themeStyle === "coding" && (
-              <span className="text-slate-dark mr-1">$</span>
-            )}
-            {themeStyle === "newspaper" && <span className="mr-1">📄</span>}
-            Resume
-          </motion.a>
-          <ThemeStyleSelector />
-        </nav>
-        <div className="md:hidden flex items-center gap-2">
-          <ThemeStyleSelector />
-          <button
-            onClick={toggleMenu}
-            className="text-accent focus:outline-none z-50 ml-2"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* ── Full-screen overlay ── */}
+      <div
+        className={`fixed inset-0 bg-[#0d0d0d] flex flex-col justify-between
+          px-8 md:px-16 lg:px-24 pt-28 pb-12
+          ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        style={{
+          clipPath: isOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
+          transition: "clip-path 0.75s cubic-bezier(0.76, 0, 0.24, 1)",
+        }}
+      >
+        {/* Primary links */}
+        <nav className="flex flex-col">
+          {PRIMARY_LINKS.map((link, i) => (
+            <a
+              key={link.name}
+              href={link.href.startsWith("/") ? undefined : link.href}
+              onClick={() => handlePrimaryClick(link.href)}
+              className="group relative overflow-hidden border-b border-white/10 py-3 md:py-5 cursor-pointer"
+              style={{
+                transform: isOpen ? "translateY(0)" : "translateY(2rem)",
+                opacity: isOpen ? 1 : 0,
+                transition: `transform 0.5s cubic-bezier(0.76,0,0.24,1) ${i * 70 + 150}ms,
+                             opacity 0.5s ease ${i * 70 + 150}ms`,
+              }}
             >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              )}
-            </svg>
-          </button>
+              {/* visible text */}
+              <span
+                className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black
+                               text-white uppercase tracking-tight leading-none
+                               transition-transform duration-300 ease-out
+                               group-hover:-translate-y-full"
+              >
+                {link.name}
+              </span>
+              {/* hover clone */}
+              <span
+                className="absolute inset-0 flex items-center
+                               text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black
+                               text-white/50 uppercase tracking-tight leading-none
+                               translate-y-full transition-transform duration-300 ease-out
+                               group-hover:translate-y-0"
+              >
+                {link.name}
+              </span>
+            </a>
+          ))}
+        </nav>
+
+        {/* Divider */}
+        <div className="h-px bg-white/15 my-6" />
+
+        {/* Social links */}
+        <div className="flex flex-wrap gap-x-8 gap-y-3">
+          {SOCIAL_LINKS.map((link, i) => (
+            <a
+              key={link.name}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden text-xs uppercase tracking-widest text-white/40"
+              style={{
+                opacity: isOpen ? 1 : 0,
+                transition: `opacity 0.4s ease ${i * 50 + 500}ms`,
+              }}
+            >
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+                {link.name}
+              </span>
+              <span
+                className="absolute inset-0 text-white/80 translate-y-full
+                               transition-transform duration-300 group-hover:translate-y-0"
+              >
+                {link.name}
+              </span>
+            </a>
+          ))}
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.div
-        className={`fixed inset-0 bg-primary/98 backdrop-blur-md transform ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 ease-in-out md:hidden z-40 border-l border-tertiary/50`}
-        initial={false}
-        animate={{ x: isMenuOpen ? 0 : "100%" }}
-      >
-        <div className="flex flex-col items-center justify-center h-full">
-          <nav className="flex flex-col items-center space-y-8">
-            {NAV_LINKS.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                onClick={toggleMenu}
-                className="font-mono text-2xl text-slate-light hover:text-accent transition-colors duration-300"
-                initial={{ opacity: 0, x: 50 }}
-                animate={
-                  isMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }
-                }
-                transition={{ delay: index * 0.1 }}
-              >
-                <span className="text-accent mr-2">
-                  {String(index + 1).padStart(2, "0")}.
-                </span>
-                {link.name}
-              </motion.a>
-            ))}
-          </nav>
-        </div>
-      </motion.div>
+      {/* ── Slim nav bar ── */}
+      <div className="relative z-10 flex items-center justify-between px-8 md:px-16 lg:px-24 py-6">
+        {/* Logo */}
+        <a
+          href="#home"
+          className={`text-2xl font-black uppercase tracking-[0.2em]
+            transition-colors duration-300 ${barColor}`}
+        >
+          MS
+        </a>
+
+        {/* Burger */}
+        <button
+          onClick={() => setIsOpen((v) => !v)}
+          aria-label="Toggle navigation"
+          className={`flex flex-col gap-[5px] p-1 transition-colors duration-300 ${barColor}`}
+        >
+          <span
+            className={`block h-[1.5px] w-6 bg-current origin-center
+              transition-transform duration-300
+              ${isOpen ? "rotate-45 translate-y-[3.25px]" : ""}`}
+          />
+          <span
+            className={`block h-[1.5px] w-6 bg-current origin-center
+              transition-transform duration-300
+              ${isOpen ? "-rotate-45 -translate-y-[3.25px]" : ""}`}
+          />
+        </button>
+      </div>
     </header>
   );
 };

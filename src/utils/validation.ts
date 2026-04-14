@@ -22,14 +22,14 @@ export const validateRequired = (value: string): boolean => {
 
 export const validateMinLength = (
   value: string,
-  minLength: number
+  minLength: number,
 ): boolean => {
   return value.trim().length >= minLength;
 };
 
 export const validateMaxLength = (
   value: string,
-  maxLength: number
+  maxLength: number,
 ): boolean => {
   return value.trim().length <= maxLength;
 };

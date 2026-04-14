@@ -16,7 +16,8 @@ Write-Host "📦 Step 1: Moving components to new structure..." -ForegroundColor
 if (-not (Test-Path "components")) {
     Write-Host "⚠️  Warning: 'components' folder not found. Components may already be migrated." -ForegroundColor Yellow
     Write-Host "Continuing with other setup steps..." -ForegroundColor Yellow
-} else {
+}
+else {
     # Move Layout Components
     if (Test-Path "components/Navbar.tsx") {
         Move-Item "components/Navbar.tsx" "src/components/layout/" -Force
@@ -83,7 +84,8 @@ if (-not (Test-Path ".env.local")) {
     Write-Host "  ⚠️  Creating .env.local from template..." -ForegroundColor Yellow
     Copy-Item ".env.example" ".env.local"
     Write-Host "  ⚠️  IMPORTANT: Edit .env.local and add your VITE_GEMINI_API_KEY" -ForegroundColor Yellow
-} else {
+}
+else {
     Write-Host "  ✅ .env.local exists" -ForegroundColor Green
 }
 

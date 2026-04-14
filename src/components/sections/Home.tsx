@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   const isVisible = useIntersectionObserver(
     sectionRef,
     { threshold: 0.6 },
-    false
+    false,
   );
 
   const nameText = "Muhammad Shahan.";

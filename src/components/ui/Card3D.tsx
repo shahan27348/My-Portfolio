@@ -1,5 +1,6 @@
 import { useRef, useState, ReactNode } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 interface Card3DProps {
   children: ReactNode;
@@ -10,65 +11,62 @@ const Card3D: React.FC<Card3DProps> = ({ children, className = "" }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  useGSAP(
+    () => {
+      const card = cardRef.current;
+      if (!card) return;
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+      const handleMouseMove = (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+        gsap.to(card, {
+          rotateX: y * -15,
+          rotateY: x * 15,
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+      const handleMouseEnter = () => setIsHovered(true);
 
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
+      const handleMouseLeave = () => {
+        setIsHovered(false);
+        gsap.to(card, {
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.5)",
+        });
+      };
 
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+      card.addEventListener("mousemove", handleMouseMove);
+      card.addEventListener("mouseenter", handleMouseEnter);
+      card.addEventListener("mouseleave", handleMouseLeave);
 
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    x.set(0);
-    y.set(0);
-  };
+      return () => {
+        card.removeEventListener("mousemove", handleMouseMove);
+        card.removeEventListener("mouseenter", handleMouseEnter);
+        card.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    },
+    { scope: cardRef },
+  );
 
   return (
-    <motion.div
+    <div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
       className={`relative ${className}`}
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      style={{ transformStyle: "preserve-3d" }}
     >
-      {/* Glow effect */}
       {isHovered && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/20 rounded-lg blur-xl -z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/20 rounded-lg blur-xl -z-10 transition-opacity duration-300" />
       )}
-
       <div style={{ transform: "translateZ(50px)" }}>{children}</div>
-    </motion.div>
+    </div>
   );
 };
 

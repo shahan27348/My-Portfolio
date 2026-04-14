@@ -13,7 +13,7 @@ export default {
         "slate-dark": "var(--color-slate-dark)",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["Poppins", "Inter", "Segoe UI", "sans-serif"],
         mono: ["Fira Code", "monospace"],
       },
       animation: {

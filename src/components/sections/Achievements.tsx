@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { ACHIEVEMENTS } from "@/constants";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionTitle: React.FC<{
   number: string;
@@ -23,7 +28,7 @@ const AchievementCard: React.FC<{
   category: string;
   icon?: string;
 }> = ({ title, description, date, category, icon }) => (
-  <div className="group relative bg-navy-light rounded-lg p-6 hover:transform hover:-translate-y-2 transition-all duration-300 border border-slate-dark/50 hover:border-accent/50">
+  <div className="group relative bg-black rounded-lg p-6 hover:transform hover:-translate-y-2 transition-all duration-300 border border-white/10 hover:border-white/30">
     <div className="flex items-start gap-4">
       {icon && (
         <div className="text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -49,6 +54,36 @@ const AchievementCard: React.FC<{
 );
 
 const Achievements: React.FC = () => {
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!statsRef.current) return;
+
+      // Animate stat numbers counting up
+      const statNumbers = statsRef.current.querySelectorAll(".stat-number");
+      statNumbers.forEach((el) => {
+        const target = parseInt(el.getAttribute("data-value") || "0", 10);
+        const suffix = el.getAttribute("data-suffix") || "";
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+          onUpdate: () => {
+            (el as HTMLElement).textContent = Math.round(obj.val) + suffix;
+          },
+        });
+      });
+    },
+    { scope: statsRef },
+  );
+
   return (
     <AnimatedSection>
       <section id="achievements" className="py-24">
@@ -65,23 +100,50 @@ const Achievements: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="max-w-4xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div
+          ref={statsRef}
+          className="max-w-4xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
           <div className="text-center">
-            <div className="text-4xl font-bold text-accent mb-2">100+</div>
+            <div
+              className="stat-number text-4xl font-bold text-accent mb-2"
+              data-value="100"
+              data-suffix="+"
+            >
+              0
+            </div>
             <div className="text-slate-dark text-sm">
               Open Source Contributions
             </div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-accent mb-2">5</div>
+            <div
+              className="stat-number text-4xl font-bold text-accent mb-2"
+              data-value="5"
+              data-suffix=""
+            >
+              0
+            </div>
             <div className="text-slate-dark text-sm">Certifications</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-accent mb-2">50K+</div>
+            <div
+              className="stat-number text-4xl font-bold text-accent mb-2"
+              data-value="50"
+              data-suffix="K+"
+            >
+              0
+            </div>
             <div className="text-slate-dark text-sm">Article Views</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-accent mb-2">3</div>
+            <div
+              className="stat-number text-4xl font-bold text-accent mb-2"
+              data-value="3"
+              data-suffix=""
+            >
+              0
+            </div>
             <div className="text-slate-dark text-sm">Awards Won</div>
           </div>
         </div>

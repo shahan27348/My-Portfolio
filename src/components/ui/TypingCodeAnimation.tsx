@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 interface TypingCodeAnimationProps {
   code: string[];
@@ -75,11 +74,8 @@ const TypingCodeAnimation: React.FC<TypingCodeAnimationProps> = ({
   return (
     <div className={`font-mono text-sm md:text-base ${className}`}>
       {displayedCode.map((line, index) => (
-        <motion.div
+        <div
           key={index}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
           className={`${getSyntaxColor(line || "")} leading-relaxed`}
         >
           <span className="text-slate-dark mr-4 select-none">
@@ -90,7 +86,7 @@ const TypingCodeAnimation: React.FC<TypingCodeAnimationProps> = ({
             currentCharIndex === (line?.length || 0) && (
               <span className="inline-block w-2 h-5 bg-accent ml-1 animate-pulse" />
             )}
-        </motion.div>
+        </div>
       ))}
     </div>
   );

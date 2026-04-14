@@ -134,68 +134,87 @@ When answering:
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle chat assistant"
-        className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-accent text-primary shadow-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-dark transition-all duration-300 ease-in-out transform
+        className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-[#E4E4E4] text-[#1A1A1A] hover:text-[#1A1A1A] hover:border-white/50 transition-all duration-300 ease-in-out transform
           ${
             isOpen
               ? "opacity-0 scale-0 pointer-events-none"
               : "opacity-100 scale-100"
           }`}
+        style={{
+          fontFamily: "'League Gothic', sans-serif",
+          fontSize: "0.75rem",
+          letterSpacing: "0.15em",
+        }}
       >
-        <ChatIcon className="w-6 h-6" />
+        <ChatIcon className="w-4 h-4" />
+        <span className="uppercase">Chat with Shahan</span>
       </button>
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-0 right-0 md:bottom-6 md:right-6 z-50 bg-secondary shadow-2xl rounded-t-lg md:rounded-lg w-full h-full md:w-[400px] md:h-[600px] flex flex-col transition-all duration-300 ease-in-out
+        className={`fixed bottom-0 right-0 md:bottom-6 md:right-6 z-50 flex flex-col transition-all duration-300 ease-in-out
+          w-full h-full md:w-[420px] md:h-[580px] md:rounded-lg
           ${
             isOpen
               ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-full md:translate-y-8 pointer-events-none"
+              : "opacity-0 translate-y-full md:translate-y-6 pointer-events-none"
           }`}
+        style={{
+          background: "#E4E4E4",
+          border: "1px solid rgba(255,255,255,0.1)",
+        }}
         aria-hidden={!isOpen}
       >
         {/* Header */}
-        <header className="flex items-center justify-between p-4 border-b border-tertiary">
-          <h3 className="font-bold text-slate-light">Chat with Shahan</h3>
+        <header className="flex items-center justify-between px-6 py-4 border-b border-[#1A1A1A]">
+          <h3
+            className="uppercase text-[#1A1A1A] tracking-[0.15em]"
+            style={{
+              fontFamily: "'League Gothic', sans-serif",
+              fontSize: "1.1rem",
+            }}
+          >
+            Chat with Shahan
+          </h3>
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close chat"
-            className="text-slate-dark hover:text-accent"
+            className="text-[#1A1A1A] hover:text-[1a1a1a] transition-colors"
           >
-            <CloseIcon className="w-6 h-6" />
+            <CloseIcon className="w-5 h-5" />
           </button>
         </header>
 
         {/* Messages */}
-        <div className="flex-1 p-4 overflow-y-auto">
-          <div className="flex flex-col space-y-4">
+        <div className="flex-1 px-5 py-4 overflow-y-auto chat-messages">
+          <div className="flex flex-col gap-3">
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  msg.role === "user" ? "justify-end" : "justify-start"
-                }`}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                  className={`max-w-[82%] px-4 py-3 rounded-xl text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-accent/80 text-primary"
-                      : "bg-tertiary text-slate-light"
+                      ? "border border-[#1a1a1a] text-[#1a1a1a] "
+                      : "bg-white/6 text-[#1A1A1A] border border-[#1A1A1A]"
                   }`}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.82rem",
+                  }}
                 >
-                  <p className="text-sm" style={{ whiteSpace: "pre-wrap" }}>
-                    {msg.text}
-                  </p>
+                  <p style={{ whiteSpace: "pre-wrap" }}>{msg.text}</p>
                 </div>
               </div>
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-lg px-4 py-2 bg-tertiary text-slate-light">
-                  <div className="flex items-center space-x-2">
-                    <span className="h-2 w-2 bg-slate-dark rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                    <span className="h-2 w-2 bg-slate-dark rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                    <span className="h-2 w-2 bg-slate-dark rounded-full animate-bounce"></span>
+                <div className="px-4 py-3 rounded-xl bg-white/6 border border-white/10">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 bg-[#1A1A1A] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                    <span className="h-1.5 w-1.5 bg-[#1A1A1A] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                    <span className="h-1.5 w-1.5 bg-[#1A1A1A] rounded-full animate-bounce"></span>
                   </div>
                 </div>
               </div>
@@ -205,24 +224,25 @@ When answering:
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-tertiary">
-          <form onSubmit={handleSend} className="flex items-center space-x-2">
+        <div className="px-5 py-4 border-t border-[#1A1A1A]">
+          <form onSubmit={handleSend} className="flex items-center gap-3">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask a question..."
-              className="w-full bg-tertiary text-slate-light border border-tertiary rounded-full py-2 px-4 focus:outline-none focus:border-accent transition-colors duration-300"
+              className="flex-1 bg-transparent text-[#1A1A1A] border border-[#1A1A1A] rounded-full py-2.5 px-4 text-sm focus:outline-none focus:border-[#1A1A1A] placeholder:text-[#1A1A1A]/50 transition-colors duration-300"
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
               disabled={isLoading}
               aria-label="Chat input"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="p-3 rounded-full bg-accent text-primary disabled:bg-slate-dark disabled:cursor-not-allowed hover:bg-opacity-90 transition-colors"
+              className="flex-shrink-0 p-2.5 rounded-full border border-[#1A1A1A] text-[#1A1A1A]/50 hover:text-[#1A1A1A] hover:border-[#1A1A1A]/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
               aria-label="Send message"
             >
-              <SendIcon className="w-5 h-5" />
+              <SendIcon className="w-4 h-4" />
             </button>
           </form>
         </div>

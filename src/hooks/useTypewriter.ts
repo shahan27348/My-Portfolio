@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 const useTypewriter = (
   text: string,
   speed: number = 100,
-  start: boolean = true
+  start: boolean = true,
 ) => {
   const [displayText, setDisplayText] = useState("");
   const [isFinished, setIsFinished] = useState(false);

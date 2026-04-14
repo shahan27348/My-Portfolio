@@ -1,57 +1,89 @@
-import React from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HomeNew from "@/components/sections/HomeNew";
 import About from "@/components/sections/About";
-import Experience from "@/components/sections/Experience";
-import SkillsNew from "@/components/sections/SkillsNew";
-import ProjectsNew from "@/components/sections/ProjectsNew";
-import Achievements from "@/components/sections/Achievements";
-import Courses from "@/components/sections/Courses";
-import MicroSaaS from "@/components/sections/MicroSaaS";
-import Contact from "@/components/sections/Contact";
-import BackgroundEffect from "@/components/ui/BackgroundEffect";
-import CodeEditorBackground from "@/components/ui/CodeEditorBackground";
-import Scene3D from "@/components/3d/Scene3D";
-import CustomCursor from "@/components/ui/CustomCursor";
+import LatestWork from "@/components/sections/LatestWork";
+import SkillSet from "@/components/sections/SkillSet";
+import ContactPage from "@/pages/ContactPage";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
-import ChatAssistant from "@/components/ui/ChatAssistant";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import LoadingSequence from "@/components/ui/LoadingSequence";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+
+const ChatAssistant = lazy(() => import("@/components/ui/ChatAssistant"));
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  useSmoothScroll();
+
+  useEffect(() => {
+    // Prevent scrolling during loading
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+      // Also scroll to top during loading
+      window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isLoading]);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    // Small delay then reveal content with fade
+    requestAnimationFrame(() => {
+      setShowContent(true);
+    });
+  };
+
   return (
-    <ErrorBoundary>
-      <ThemeProvider>
-        <div className="bg-primary text-slate-light font-mono leading-relaxed antialiased selection:bg-accent selection:text-primary overflow-x-hidden">
-          {/* Code Editor Background Effect */}
-          <CodeEditorBackground />
-          {/* Molecule/Particle Effect (Canvas) */}
-          <BackgroundEffect />
-          {/* 3D Animated Background */}
-          <Scene3D />
-          {/* Custom Cursor */}
-          <CustomCursor />
-          <div className="relative z-10">
-            <Navbar />
-            <main className="container mx-auto px-6 md:px-12 lg:px-24">
-              <HomeNew />
-              <About />
-              <Experience />
-              <SkillsNew />
-              <ProjectsNew />
-              <Achievements />
-              <Courses />
-              <MicroSaaS />
-              <Contact />
-            </main>
-            <Footer />
-            <ScrollToTopButton />
-            <ChatAssistant />
-          </div>
-        </div>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <ErrorBoundary>
+        <Routes>
+          {/* ── Contact page — standalone, no loading screen ── */}
+          <Route path="/contact" element={<ContactPage />} />
+
+          {/* ── Main portfolio ── */}
+          <Route
+            path="*"
+            element={
+              <>
+                {isLoading && (
+                  <LoadingSequence onComplete={handleLoadingComplete} />
+                )}
+                <div
+                  className={`bg-primary text-slate-light leading-relaxed antialiased selection:bg-accent selection:text-primary overflow-x-hidden transition-opacity duration-1000 ease-out ${
+                    showContent ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <ScrollProgress />
+                  <div className="relative z-10">
+                    <Navbar />
+                    <HomeNew />
+                    <main className="container mx-auto px-6 md:px-12 lg:px-24">
+                      <About />
+                    </main>
+                    <LatestWork />
+                    <div className="container mx-auto px-6 md:px-12 lg:px-24">
+                      <SkillSet />
+                    </div>
+                    <Footer />
+                    <ScrollToTopButton />
+                    <Suspense fallback={null}>
+                      <ChatAssistant />
+                    </Suspense>
+                  </div>
+                </div>
+              </>
+            }
+          />
+        </Routes>
+      </ErrorBoundary>
+    </BrowserRouter>
   );
 };
 

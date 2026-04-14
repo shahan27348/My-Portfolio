@@ -1,5 +1,9 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ParallaxLayerProps {
   children: React.ReactNode;
@@ -13,18 +17,28 @@ export const ParallaxLayer: React.FC<ParallaxLayerProps> = ({
   className = "",
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100 * speed]);
-  const ySpring = useSpring(y, { stiffness: 100, damping: 30 });
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      gsap.to(ref.current, {
+        y: () => -100 * speed,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.5,
+        },
+      });
+    },
+    { scope: ref },
+  );
 
   return (
-    <motion.div ref={ref} style={{ y: ySpring }} className={className}>
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -41,24 +55,33 @@ export const Float3D: React.FC<Float3DProps> = ({
   duration = 3,
   className = "",
 }) => {
-  return (
-    <motion.div
-      className={className}
-      animate={{
-        y: [0, -20, 0],
-        rotateX: [0, 5, 0],
-        rotateY: [0, 5, 0],
-      }}
-      transition={{
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      gsap.to(ref.current, {
+        y: -20,
+        rotateX: 5,
+        rotateY: 5,
         duration,
         delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    },
+    { scope: ref },
+  );
+
+  return (
+    <div
+      ref={ref}
+      className={className}
       style={{ transformStyle: "preserve-3d" }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -68,50 +91,56 @@ interface Tilt3DProps {
 }
 
 export const Tilt3D: React.FC<Tilt3DProps> = ({ children, className = "" }) => {
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el) return;
 
-    const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+      const handleMouseMove = (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+        gsap.to(el, {
+          rotateX: ((y - centerY) / centerY) * -10,
+          rotateY: ((x - centerX) / centerX) * 10,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
 
-    const rotateXValue = ((y - centerY) / centerY) * -10;
-    const rotateYValue = ((x - centerX) / centerX) * 10;
+      const handleMouseLeave = () => {
+        gsap.to(el, {
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.5)",
+        });
+      };
 
-    setRotateX(rotateXValue);
-    setRotateY(rotateYValue);
-  };
+      el.addEventListener("mousemove", handleMouseMove);
+      el.addEventListener("mouseleave", handleMouseLeave);
 
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-  };
+      return () => {
+        el.removeEventListener("mousemove", handleMouseMove);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    },
+    { scope: ref },
+  );
 
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{
-        rotateX,
-        rotateY,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      style={{
-        transformStyle: "preserve-3d",
-        perspective: "1000px",
-      }}
+      style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -125,18 +154,33 @@ export const ScaleOnScroll: React.FC<ScaleOnScrollProps> = ({
   className = "",
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      gsap.fromTo(
+        ref.current,
+        { scale: 0.8, opacity: 0.5 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top bottom",
+            end: "center center",
+            scrub: 0.5,
+          },
+        },
+      );
+    },
+    { scope: ref },
+  );
 
   return (
-    <motion.div ref={ref} style={{ scale, opacity }} className={className}>
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -152,21 +196,34 @@ export const RotateOnScroll: React.FC<RotateOnScrollProps> = ({
   className = "",
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      const prop =
+        direction === "x"
+          ? "rotateX"
+          : direction === "y"
+            ? "rotateY"
+            : "rotateZ";
 
-  const style = {
-    [direction === "x" ? "rotateX" : direction === "y" ? "rotateY" : "rotateZ"]:
-      rotate,
-  };
+      gsap.to(ref.current, {
+        [prop]: 360,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    },
+    { scope: ref },
+  );
 
   return (
-    <motion.div ref={ref} style={style} className={className}>
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 };

@@ -136,7 +136,6 @@ npm run preview
    ```
 
 2. **Connect GitHub and Auto-Deploy**
-
    - Go to [vercel.com](https://vercel.com)
    - Import your GitHub repository
    - Vercel auto-detects Vite config
@@ -151,7 +150,6 @@ npm run preview
 ### Deploy to Netlify
 
 1. **Connect GitHub**
-
    - Go to [netlify.com](https://netlify.com)
    - New site from Git → Choose repository
    - Build command: `npm run build`
