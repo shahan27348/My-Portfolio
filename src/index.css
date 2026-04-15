@@ -412,11 +412,11 @@
   .footer-back-top {
     position: relative;
     display: inline-flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     overflow: hidden;
     font-family: "League Gothic", sans-serif;
-    padding: 1rem 0.1rem 1rem 0.1rem;
+    padding: 1rem 1rem;
     border: 1px solid #1a1a1a;
     border-radius: 9999px;
     cursor: pointer;
@@ -711,6 +711,45 @@
 
   .lw-see-all:hover .lw-see-all__text {
     color: #ffffff;
+  }
+  .lw-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.8rem 2.5rem;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 9999px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .lw-btn__fill {
+    position: absolute;
+    inset: 0;
+    background: #d3d3d3;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: inherit;
+  }
+
+  .lw-btn:hover .lw-btn__fill {
+    transform: translateY(0);
+  }
+
+  .lw-btn__text {
+    position: relative;
+    z-index: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #d3d3d3;
+    transition: color 0.3s ease;
+  }
+
+  .lw-btn:hover .lw-btn__text {
+    color: #1a1a1a;
   }
 
   /* ===== LatestWork card hover effects ===== */

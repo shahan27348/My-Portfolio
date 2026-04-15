@@ -99,8 +99,21 @@ const Navbar: React.FC = () => {
         {/* Divider */}
         <div className="h-px bg-white/15 my-6" />
 
-        {/* Social links */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3">
+        {/* Resume + Social links */}
+        <div className="flex flex-wrap gap-x-8 gap-y-3 items-center">
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            className="group relative overflow-hidden text-xs uppercase tracking-widest text-white/80 border border-white/30 rounded-full px-5 py-2 hover:bg-white hover:text-black transition-colors duration-300"
+            style={{
+              opacity: isOpen ? 1 : 0,
+              transition: `opacity 0.4s ease 300ms`,
+            }}
+          >
+            Download Resume
+          </a>
           {SOCIAL_LINKS.map((link, i) => (
             <a
               key={link.name}
@@ -131,7 +144,7 @@ const Navbar: React.FC = () => {
       <div className="relative z-10 flex items-center justify-between px-8 md:px-16 lg:px-24 py-6">
         {/* Logo */}
         <a
-          href="#home"
+          href="/home"
           className={`text-2xl font-black uppercase tracking-[0.2em]
             transition-colors duration-300 ${barColor}`}
         >

@@ -177,13 +177,15 @@ const LatestWork: React.FC = () => {
       {/* Section heading */}
       <div className="px-10 md:px-16 lg:px-24 py-16 pb-10">
         <h2
-          className="uppercase text-[#e4e4e4] leading-none tracking-tight"
+          className="uppercase text-[#e4e4e4] leading-none tracking-tight m-0"
           style={{
             fontFamily: "'League Gothic', sans-serif",
-            fontSize: "clamp(2.8rem, 7vw, 7rem)",
+            fontSize: "clamp(3rem, 9vw, 9rem)",
           }}
         >
-          Latest Work
+          My
+          <br />
+         Latest Work
         </h2>
       </div>
 
@@ -198,10 +200,14 @@ const LatestWork: React.FC = () => {
           />
         ))}
       </div>
-      <button className="footer-back-top">
-        <span className="footer-back-top__fill" />
-        <span className="footer-back-top__text">See More</span>
-      </button>
+      <div className="flex justify-center py-16 px-6">
+        <a href="/work">
+          <button className="lw-btn w-full max-w-xl">
+            <span className="lw-btn__fill" />
+            <span className="lw-btn__text">See More</span>
+          </button>
+        </a>
+      </div>
     </section>
   );
 };

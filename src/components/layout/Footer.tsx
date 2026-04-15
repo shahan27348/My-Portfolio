@@ -123,6 +123,28 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
+        {/* Resume */}
+        <div>
+          <p
+            className="text-[#1A1A1A] text-xs uppercase tracking-[0.09em] mb-5 font-semibold"
+            style={{
+              fontFamily: "'League Gothic', sans-serif",
+              fontSize: "1.5rem",
+            }}
+          >
+            Resume
+          </p>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-nav-link inline-flex items-center gap-2"
+          >
+            Download CV
+            <span className="text-[10px]">↗</span>
+          </a>
+        </div>
+
         {/* Social */}
         <div>
           <p
