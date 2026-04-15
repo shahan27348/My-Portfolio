@@ -50,7 +50,7 @@ const About: React.FC = () => {
           <div className="flex justify-center items-center about-image h-full">
             <div className="relative group w-full max-w-sm">
               <img
-                src="/about.svg"
+                src="/images/shani5.png"
                 alt="About Me"
                 className="w-full h-auto object-contain transform transition-transform duration-300 group-hover:scale-105"
               />

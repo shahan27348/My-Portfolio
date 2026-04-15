@@ -4,14 +4,16 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HomeNew from "@/components/sections/HomeNew";
 import About from "@/components/sections/About";
-import LatestWork from "@/components/sections/LatestWork";
 import SkillSet from "@/components/sections/SkillSet";
 import ContactPage from "@/pages/ContactPage";
+import AboutPage from "@/pages/AboutPage";
+import WorkPage from "@/pages/WorkPage";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingSequence from "@/components/ui/LoadingSequence";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import LatestWork from "@/components/sections/LatestWork";
 
 const ChatAssistant = lazy(() => import("@/components/ui/ChatAssistant"));
 
@@ -44,8 +46,10 @@ const App: React.FC = () => {
     <BrowserRouter>
       <ErrorBoundary>
         <Routes>
-          {/* ── Contact page — standalone, no loading screen ── */}
+          {/* ── Standalone pages — no loading screen ── */}
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/work" element={<WorkPage />} />
 
           {/* ── Main portfolio ── */}
           <Route

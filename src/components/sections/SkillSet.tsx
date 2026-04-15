@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SKILL_CARDS = [
   {
@@ -51,6 +51,10 @@ const SKILL_CARDS = [
 ];
 
 const SkillSet: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (i: number) => setOpenIndex((prev) => (prev === i ? null : i));
+
   return (
     <section id="skills" className="py-24">
       {/* Heading row */}
@@ -78,6 +82,8 @@ const SkillSet: React.FC = () => {
           <div
             key={card.title}
             className="skillset-card"
+            data-open={openIndex === i ? "true" : "false"}
+            onClick={() => toggle(i)}
             style={
               {
                 "--accent": card.accent,
@@ -90,15 +96,21 @@ const SkillSet: React.FC = () => {
             {/* Number */}
             <span className="skillset-card__num">{card.number}</span>
 
-            {/* Title — always visible */}
-            <h3
-              className="skillset-card__title"
-              style={{ fontFamily: "'League Gothic', sans-serif" }}
-            >
-              {card.title}
-            </h3>
+            {/* Title row — always visible */}
+            <div className="skillset-card__header">
+              <h3
+                className="skillset-card__title"
+                style={{ fontFamily: "'League Gothic', sans-serif" }}
+              >
+                {card.title}
+              </h3>
+              {/* Plus / minus icon — visible only on mobile */}
+              <span className="skillset-card__toggle-icon">
+                {openIndex === i ? "×" : "+"}
+              </span>
+            </div>
 
-            {/* Expanded content — slides down on hover */}
+            {/* Expanded content — slides down on hover (desktop) or click (mobile) */}
             <div className="skillset-card__body">
               <div>
                 <p className="skillset-card__desc">{card.description}</p>

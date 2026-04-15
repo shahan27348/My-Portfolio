@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const PRIMARY_LINKS = [
-  { name: "Home", href: "#home" },
-  { name: "Projects", href: "#projects" },
-  { name: "About", href: "#about" },
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "/work" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 

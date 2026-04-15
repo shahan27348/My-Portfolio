@@ -588,6 +588,88 @@
     font-weight: 600;
   }
 
+  /* ===== SkillSet toggle icon (mobile only — hidden on desktop) ===== */
+  .skillset-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .skillset-card__toggle-icon {
+    display: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.6);
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  /* ===== SkillSet mobile accordion (≤ 767px) ===== */
+  @media (max-width: 767px) {
+    /* Reset stacking layout */
+    .skillset-card {
+      margin-left: 0 !important;
+      margin-top: 0 !important;
+      position: static !important;
+      max-width: 100%;
+      min-height: unset;
+      padding-bottom: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Stack cards vertically with a separator line */
+    .skillset-card + .skillset-card {
+      border-top: none;
+    }
+
+    /* Disable hover lift + water fill on mobile */
+    .skillset-card:hover {
+      transform: none;
+    }
+    .skillset-card:hover::before {
+      transform: translateY(100%);
+    }
+    .skillset-card:hover .skillset-card__num {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .skillset-card:hover .skillset-card__title {
+      color: #e4e4e4;
+    }
+
+    /* Show the + / × icon */
+    .skillset-card__toggle-icon {
+      display: block;
+    }
+
+    /* When open: lift card and fill with accent */
+    .skillset-card[data-open="true"] {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+    .skillset-card[data-open="true"]::before {
+      transform: translateY(0);
+    }
+    .skillset-card[data-open="true"] .skillset-card__num {
+      color: rgba(0, 0, 0, 0.5);
+    }
+    .skillset-card[data-open="true"] .skillset-card__title {
+      color: #000000;
+    }
+    .skillset-card[data-open="true"] .skillset-card__toggle-icon {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Expand body when open */
+    .skillset-card[data-open="true"] .skillset-card__body {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 1.25rem;
+    }
+  }
+
   /* ===== LatestWork — SEE ALL WORKS button (water fill) ===== */
   .lw-see-all {
     position: relative;
@@ -647,21 +729,6 @@
   .lw-card:hover .card-overlay {
     opacity: 1;
   }
-
-  /* 4. Text slide-up on card hover */
-  .lw-info {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .lw-card:hover .lw-info {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   /* ===== Project card animations ===== */
 
   /* 1. Scroll reveal — hidden by default */

@@ -132,18 +132,18 @@ const WorkItem: React.FC<{
       {/* Clickable content area */}
       <a
         href={item.url}
-        className="absolute inset-0 z-10 flex items-end
+        className="absolute inset-0 z-10 flex items-center text-center
                    px-10 md:px-16 lg:px-24 pb-14"
       >
         {/* Scroll-reveal wrapper (GSAP targets this) */}
         <div ref={infoWrapRef} className="w-full">
           {/* 4. Text slide-up â€” CSS hover on .lw-card triggers .lw-info */}
           <div className="lw-info">
-            <div className="flex flex-wrap gap-3 mb-4">
+            <div className="flex flex-wrap justify-center gap-3 mb-4">
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-1.5 rounded-full border border-white/50 text-white/80
+                  className="px-4 py-1.5 rounded-full border border-[#E4E4E4] text-[#E4E4E4]
                              text-[11px] uppercase tracking-widest backdrop-blur-sm"
                 >
                   {tag}
@@ -160,7 +160,7 @@ const WorkItem: React.FC<{
             >
               {item.title}
               <span
-                className="absolute bottom-0 left-0 h-[3px] bg-white
+                className="absolute bottom-[-10px] left-0 h-[10px] bg-white 
                            w-0 group-hover/title:w-full transition-all duration-500 ease-out"
               />
             </h3>
@@ -198,8 +198,11 @@ const LatestWork: React.FC = () => {
           />
         ))}
       </div>
+      <button className="footer-back-top">
+        <span className="footer-back-top__fill" />
+        <span className="footer-back-top__text">See More</span>
+      </button>
     </section>
   );
 };
-
 export default LatestWork;
