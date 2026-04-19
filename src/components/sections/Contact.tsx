@@ -1,5 +1,6 @@
 ﻿import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
+import AnimatedSection from "@/components/ui/AnimatedSection";
 
 const Contact: React.FC = () => {
   const [name, setName] = useState("");
@@ -85,171 +86,177 @@ const Contact: React.FC = () => {
      }`;
 
   return (
-    <section
-      id="contact"
-      className="w-full bg-[#1a1a1a] px-8 md:px-16 lg:px-24 py-24"
-    >
-      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-        {/* ── Left: heading ── */}
-        <div className="flex-1 flex flex-col justify-between min-h-[340px]">
-          <h2
-            className="text-white uppercase leading-[0.88] contact-heading"
-            style={{
-              fontFamily: "'League Gothic', sans-serif",
-              fontSize: "clamp(4rem, 12vw, 13rem)",
-            }}
-          >
-            Let&apos;s Get
-            <br />
-            In Touch
-          </h2>
-          <p
-            className="text-white/40 text-xs uppercase tracking-widest mt-8 lg:mt-auto"
-            style={{ fontFamily: "'League Gothic', sans-serif" }}
-          >
-            *&nbsp; Available for new projects
-            <br />
-            from March&nbsp;2025
-          </p>
-        </div>
-
-        {/* ── Right: form ── */}
-        <div className="flex-1 w-full max-w-xl">
-          {status === "success" ? (
-            <div className="flex flex-col gap-6">
-              <p
-                className="text-white uppercase"
-                style={{
-                  fontFamily: "'League Gothic', sans-serif",
-                  fontSize: "clamp(2rem, 5vw, 4rem)",
-                }}
-              >
-                Message Sent!
-              </p>
-              <p className="text-white/50 text-sm">
-                Thanks for reaching out. I will get back to you soon.
-              </p>
-              <button
-                onClick={resetForm}
-                className="contact-send-btn self-start"
-              >
-                Send Another
-              </button>
-            </div>
-          ) : status === "error" ? (
-            <div className="flex flex-col gap-6">
-              <p className="text-red-400 text-sm">
-                {errorMessage || "Something went wrong. Please try again."}
-              </p>
-              <button
-                onClick={resetForm}
-                className="contact-send-btn self-start"
-              >
-                Try Again
-              </button>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className="flex flex-col gap-8"
+    <AnimatedSection>
+      <section
+        id="contact"
+        className="w-full bg-[#1a1a1a] px-8 md:px-16 lg:px-24 py-24"
+      >
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+          {/* ── Left: heading ── */}
+          <div className="flex-1 flex flex-col justify-between min-h-[340px]">
+            <h2
+              className="bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent uppercase leading-[0.88] contact-heading"
+              style={{
+                fontFamily: "'League Gothic', sans-serif",
+                fontSize: "clamp(4rem, 12vw, 13rem)",
+              }}
             >
-              {/* Row: name + email */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-white/60 text-[0.6rem] uppercase tracking-[0.2em] mb-3"
-                    style={{
-                      fontFamily: "'League Gothic', sans-serif",
-                      fontSize: "0.75rem",
-                    }}
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="John Doe"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className={inputClass(errors.name)}
-                    disabled={status === "submitting"}
-                  />
-                  {errors.name && (
-                    <p className="text-red-400 text-xs mt-1">{errors.name}</p>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-white/60 text-[0.6rem] uppercase tracking-[0.2em] mb-3"
-                    style={{
-                      fontFamily: "'League Gothic', sans-serif",
-                      fontSize: "0.75rem",
-                    }}
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="example@gmail.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={inputClass(errors.email)}
-                    disabled={status === "submitting"}
-                  />
-                  {errors.email && (
-                    <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-                  )}
-                </div>
-              </div>
+              Let&apos;s Get
+              <br />
+              In Touch
+            </h2>
+            <p
+              className="text-white/40 text-xs uppercase tracking-widest mt-8 lg:mt-auto"
+              style={{ fontFamily: "'League Gothic', sans-serif" }}
+            >
+              *&nbsp; Available for new projects
+              <br />
+              from March&nbsp;2025
+            </p>
+          </div>
 
-              {/* Message */}
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-white/60 uppercase tracking-[0.2em] mb-3"
+          {/* ── Right: form ── */}
+          <div className="flex-1 w-full max-w-xl">
+            {status === "success" ? (
+              <div className="flex flex-col gap-6">
+                <p
+                  className="text-white uppercase"
                   style={{
                     fontFamily: "'League Gothic', sans-serif",
-                    fontSize: "0.75rem",
+                    fontSize: "clamp(2rem, 5vw, 4rem)",
                   }}
                 >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Write your message here..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className={`${inputClass(errors.message)} resize-none`}
-                  disabled={status === "submitting"}
-                />
-                {errors.message && (
-                  <p className="text-red-400 text-xs mt-1">{errors.message}</p>
-                )}
-              </div>
-
-              {/* Submit */}
-              <div>
+                  Message Sent!
+                </p>
+                <p className="text-white/50 text-sm">
+                  Thanks for reaching out. I will get back to you soon.
+                </p>
                 <button
-                  type="submit"
-                  disabled={status === "submitting"}
-                  className="contact-send-btn"
+                  onClick={resetForm}
+                  className="contact-send-btn self-start"
                 >
-                  {status === "submitting" ? "Sending..." : "Send"}
+                  Send Another
                 </button>
               </div>
-            </form>
-          )}
+            ) : status === "error" ? (
+              <div className="flex flex-col gap-6">
+                <p className="text-red-400 text-sm">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+                <button
+                  onClick={resetForm}
+                  className="contact-send-btn self-start"
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="flex flex-col gap-8"
+              >
+                {/* Row: name + email */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-white/60 text-[0.6rem] uppercase tracking-[0.2em] mb-3"
+                      style={{
+                        fontFamily: "'League Gothic', sans-serif",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="John Doe"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={inputClass(errors.name)}
+                      disabled={status === "submitting"}
+                    />
+                    {errors.name && (
+                      <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-white/60 text-[0.6rem] uppercase tracking-[0.2em] mb-3"
+                      style={{
+                        fontFamily: "'League Gothic', sans-serif",
+                        fontSize: "0.75rem",
+                      }}
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="example@gmail.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={inputClass(errors.email)}
+                      disabled={status === "submitting"}
+                    />
+                    {errors.email && (
+                      <p className="text-red-400 text-xs mt-1">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-white/60 uppercase tracking-[0.2em] mb-3"
+                    style={{
+                      fontFamily: "'League Gothic', sans-serif",
+                      fontSize: "0.75rem",
+                    }}
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    placeholder="Write your message here..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className={`${inputClass(errors.message)} resize-none`}
+                    disabled={status === "submitting"}
+                  />
+                  {errors.message && (
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit */}
+                <div>
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="contact-send-btn"
+                  >
+                    {status === "submitting" ? "Sending..." : "Send"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AnimatedSection>
   );
 };
 

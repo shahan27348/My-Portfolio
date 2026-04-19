@@ -4,7 +4,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
   return (
     <h2
-      className="uppercase text-[#e4e4e4] leading-none tracking-tight mb-10"
+      className="uppercase bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent leading-none tracking-tight mb-10"
       style={{
         fontFamily: "'League Gothic', sans-serif",
         fontSize: "clamp(2.8rem, 7vw, 7rem)",
@@ -15,7 +15,23 @@ const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const About: React.FC = () => {
+const SubHeading: React.FC<{ title: string }> = ({ title }) => (
+  <h3
+    className="uppercase bg-gradient-to-b from-[#e4e4e4] to-[#666] bg-clip-text text-transparent leading-none tracking-tight mb-6"
+    style={{
+      fontFamily: "'League Gothic', sans-serif",
+      fontSize: "clamp(2rem, 5vw, 4rem)",
+    }}
+  >
+    {title}
+  </h3>
+);
+
+interface AboutProps {
+  isPage?: boolean;
+}
+
+const About: React.FC<AboutProps> = ({ isPage = false }) => {
   return (
     <AnimatedSection>
       <section id="about" className="py-10">
@@ -44,6 +60,16 @@ const About: React.FC = () => {
                 trying new restaurants, and sometimes just relaxing.
               </p>
             </div>
+            {!isPage && (
+              <div className="flex justify-start py-16 px-6">
+                <a href="/about">
+                  <button className="about-btn w-full max-w-xl">
+                    <span className="about-btn__fill" />
+                    <span className="about-btn__text">See More</span>
+                  </button>
+                </a>
+              </div>
+            )}
           </div>
 
           {/* About SVG Illustration */}
@@ -57,6 +83,64 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* ── Extended sections — visible only on the About page ── */}
+        {isPage && (
+          <div className="mt-24 grid gap-20 grid-cols-1 lg:grid-cols-2">
+            {/* Education */}
+            <div>
+              <SubHeading title="Education" />
+              <div className="space-y-8">
+                <div className="border-l border-white/10 pl-6">
+                  <p className="text-xs uppercase tracking-widest text-white/30 mb-1">
+                    2023 – 2027
+                  </p>
+                  <p className="text-[#e4e4e4] font-semibold text-sm md:text-base">
+                    Bachelor of Science in Computer Science
+                  </p>
+                  <p className="text-[#888] text-sm mt-1">
+                    Virtual University of Pakistan, Lahore
+                  </p>
+                  <p className="text-[#666] text-xs mt-2 leading-relaxed max-w-sm">
+                    Focused on software engineering, data structures,
+                    algorithms, and web technologies. Graduated with strong
+                    practical project experience.
+                  </p>
+                </div>
+                <div className="border-l border-white/10 pl-6">
+                  <p className="text-[#e4e4e4] font-semibold text-sm md:text-base">
+                    Languages
+                  </p>
+                  <p className="text-[#888] text-sm mt-1">
+                    English, Urdu, Punjabi
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience */}
+            <div>
+              <SubHeading title="Experience" />
+              <div className="space-y-8">
+                <div className="border-l border-white/10 pl-6">
+                  <p className="text-xs uppercase tracking-widest text-white/30 mb-1">
+                    2024 – Present
+                  </p>
+                  <p className="text-[#e4e4e4] font-semibold text-sm md:text-base">
+                    Junior Full Stack Developer -Intern
+                  </p>
+                  <p className="text-[#888] text-sm mt-1">Ichonic Inc</p>
+                  <p className="text-[#666] text-xs mt-2 leading-relaxed max-w-sm">
+                    Built and shipped 3 apps on the Wix App Market. Led
+                    front-end development using React, Next.js, and TypeScript
+                    while collaborating on Node.js back-end services and
+                    third-party API integrations.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </AnimatedSection>
   );

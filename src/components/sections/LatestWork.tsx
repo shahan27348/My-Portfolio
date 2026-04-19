@@ -1,4 +1,5 @@
 ﻿import React, { useRef, useEffect } from "react";
+import AnimatedSection from "@/components/ui/AnimatedSection";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -173,42 +174,44 @@ const WorkItem: React.FC<{
 
 const LatestWork: React.FC = () => {
   return (
-    <section id="work">
-      {/* Section heading */}
-      <div className="px-10 md:px-16 lg:px-24 py-16 pb-10">
-        <h2
-          className="uppercase text-[#e4e4e4] leading-none tracking-tight m-0"
-          style={{
-            fontFamily: "'League Gothic', sans-serif",
-            fontSize: "clamp(3rem, 9vw, 9rem)",
-          }}
-        >
-          My
-          <br />
-         Latest Work
-        </h2>
-      </div>
+    <AnimatedSection>
+      <section id="work">
+        {/* Section heading */}
+        <div className="px-10 md:px-16 lg:px-24 py-16 pb-10">
+          <h2
+            className="uppercase bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent leading-none tracking-tight m-0"
+            style={{
+              fontFamily: "'League Gothic', sans-serif",
+              fontSize: "clamp(3rem, 9vw, 9rem)",
+            }}
+          >
+            My
+            <br />
+            Latest Work
+          </h2>
+        </div>
 
-      {/* Stacking cards */}
-      <div>
-        {WORK_ITEMS.map((item, i) => (
-          <WorkItem
-            key={item.title}
-            item={item}
-            index={i}
-            total={WORK_ITEMS.length}
-          />
-        ))}
-      </div>
-      <div className="flex justify-center py-16 px-6">
-        <a href="/work">
-          <button className="lw-btn w-full max-w-xl">
-            <span className="lw-btn__fill" />
-            <span className="lw-btn__text">See More</span>
-          </button>
-        </a>
-      </div>
-    </section>
+        {/* Stacking cards */}
+        <div>
+          {WORK_ITEMS.map((item, i) => (
+            <WorkItem
+              key={item.title}
+              item={item}
+              index={i}
+              total={WORK_ITEMS.length}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center py-16 px-6">
+          <a href="/work">
+            <button className="lw-btn w-full max-w-xl">
+              <span className="lw-btn__fill" />
+              <span className="lw-btn__text">See More</span>
+            </button>
+          </a>
+        </div>
+      </section>
+    </AnimatedSection>
   );
 };
 export default LatestWork;

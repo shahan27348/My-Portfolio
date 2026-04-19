@@ -18,8 +18,9 @@ import LatestWork from "@/components/sections/LatestWork";
 const ChatAssistant = lazy(() => import("@/components/ui/ChatAssistant"));
 
 const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const hasLoaded = sessionStorage.getItem("hasLoaded") === "true";
+  const [isLoading, setIsLoading] = useState(!hasLoaded);
+  const [showContent, setShowContent] = useState(hasLoaded);
 
   useSmoothScroll();
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
   }, [isLoading]);
 
   const handleLoadingComplete = () => {
+    sessionStorage.setItem("hasLoaded", "true");
     setIsLoading(false);
     // Small delay then reveal content with fade
     requestAnimationFrame(() => {

@@ -34,7 +34,7 @@ const WorkPage: React.FC = () => {
       </header>
 
       {/* ── Content ── */}
-      <main className="pt-24">
+      <main className="pt-24 page-enter">
         <LatestWork />
       </main>
 

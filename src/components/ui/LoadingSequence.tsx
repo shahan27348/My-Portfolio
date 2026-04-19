@@ -39,7 +39,7 @@ const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) => {
         duration: 0.8,
         ease: "power3.out",
       },
-      0.4,
+      0.9,
     );
 
     // 2. Line draws under the letters
@@ -47,8 +47,11 @@ const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) => {
       lineRef.current,
       {
         scaleX: 1,
+        opacity: 0,
+        filter: "blur(20px)",
         duration: 0.6,
-        ease: "power2.inOut",
+        ease: "power3.in",
+        stagger: 0.05,
       },
       0.9,
     );
@@ -93,7 +96,7 @@ const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) => {
           ref={(el) => {
             if (el) shutterRefs.current[i] = el;
           }}
-          className="absolute top-0 h-full bg-[#0d0d0d]"
+          className="absolute top-0 h-full bg-[#1A1A1A]"
           style={{
             left: `${i * (100 / 6)}%`,
             width: `calc(100% / 6 + 1px)`,
@@ -103,40 +106,41 @@ const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) => {
       ))}
 
       {/* MS centered */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-0">
-        <div className="flex items-end leading-none overflow-hidden">
-          <span
-            ref={mRef}
-            className="inline-block text-white select-none"
-            style={{
-              fontFamily: "'League Gothic', sans-serif",
-              fontSize: "clamp(6rem, 18vw, 16rem)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-            }}
-          >
-            M
-          </span>
-          <span
-            ref={sRef}
-            className="inline-block text-white select-none"
-            style={{
-              fontFamily: "'League Gothic', sans-serif",
-              fontSize: "clamp(6rem, 18vw, 16rem)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-            }}
-          >
-            S
-          </span>
+      <div className="absolute w-full h-full inset-0 z-20 flex flex-col items-center justify-center gap-0">
+        <div className="flex items-center justify-center flex-col w-full h-full leading-none overflow-hidden">
+          <div className="flex items-center justify-center  leading-none w-full h-full overflow-hidden">
+            <span
+              ref={mRef}
+              className="inline-block text-white select-none"
+              style={{
+                fontFamily: "'League Gothic', sans-serif",
+                fontSize: "clamp(6rem, 18vw, 16rem)",
+                letterSpacing: "-0.02em",
+                lineHeight: 1,
+              }}
+            >
+              M
+            </span>
+            <span
+              ref={sRef}
+              className="inline-block text-white select-none"
+              style={{
+                fontFamily: "'League Gothic', sans-serif",
+                fontSize: "clamp(6rem, 18vw, 16rem)",
+                letterSpacing: "-0.02em",
+                lineHeight: 1,
+              }}
+            >
+              S
+            </span>
+          </div>
+          {/* Underline */}
+          <div
+            ref={lineRef}
+            className="bg-white rounded-full relative bottom-[260px]"
+            style={{ height: "10px", width: "clamp(7rem, 19vw, 17rem)" }}
+          />
         </div>
-
-        {/* Underline */}
-        <div
-          ref={lineRef}
-          className="bg-white mt-3"
-          style={{ height: "2px", width: "clamp(7rem, 19vw, 17rem)" }}
-        />
       </div>
     </div>
   );

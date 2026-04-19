@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
             {/* visible text */}
             <span className="footer-cta-visible">Drop Me a Line</span>
             {/* hover clone */}
-            <span className="footer-cta-clone" aria-hidden>
+            <span className="footer-cta-clone " aria-hidden>
               Drop Me a Line
             </span>
           </a>

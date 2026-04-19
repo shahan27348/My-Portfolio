@@ -34,7 +34,7 @@ const ContactPage: React.FC = () => {
       </header>
 
       {/* ── Content ── */}
-      <main className="pt-24">
+      <main className="pt-24 page-enter">
         <Contact />
       </main>
 

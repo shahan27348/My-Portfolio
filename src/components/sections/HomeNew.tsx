@@ -79,7 +79,7 @@ const Home: React.FC = () => {
         <div className="flex flex-wrap items-start justify-between gap-y-6">
           {/* Name headline — each word is overflow-hidden so the slide-up is clipped */}
           <h1
-            className="leading-[0.9] text-[#e4e4e4] uppercase m-0 p-0"
+            className="leading-[0.9] uppercase m-0 p-0"
             style={{
               fontFamily: "'League Gothic', sans-serif",
               fontSize: "clamp(3.8rem, 11vw, 13rem)",
@@ -91,7 +91,9 @@ const Home: React.FC = () => {
                 className="inline-block overflow-hidden align-bottom"
                 style={{ marginRight: "0.12em" }}
               >
-                <span className="hw1 inline-block">{word}</span>
+                <span className="hw1 inline-block bg-gradient-to-b from-[#e4e4e4] to-[#555] bg-clip-text text-transparent">
+                  {word}
+                </span>
               </span>
             ))}
           </h1>
@@ -101,7 +103,7 @@ const Home: React.FC = () => {
             className="hero-desc-1 text-sm md:text-base text-[#888]
                         leading-relaxed max-w-[250px] mt-2 shrink-0 self-start"
           >
-            I've been building full-stack digital products for 3+ years. I craft
+            I've been building full-stack digital products for 1+ years. I craft
             experiences that are useful &amp; enjoyable for the final user.
           </p>
         </div>
@@ -120,7 +122,7 @@ const Home: React.FC = () => {
 
           {/* Role headline */}
           <h2
-            className="leading-[0.9] text-[#e4e4e4] uppercase m-0 p-0"
+            className="leading-[0.9] uppercase m-0 p-0"
             style={{
               fontFamily: "'League Gothic', sans-serif",
               fontSize: "clamp(3rem, 9.5vw, 11rem)",
@@ -132,7 +134,9 @@ const Home: React.FC = () => {
                 className="inline-block overflow-hidden align-bottom"
                 style={{ marginRight: "0.12em" }}
               >
-                <span className="hw2 inline-block">{word}</span>
+                <span className="hw2 inline-block bg-gradient-to-b from-[#e4e4e4] to-[#555] bg-clip-text text-transparent">
+                  {word}
+                </span>
               </span>
             ))}
           </h2>

@@ -34,8 +34,8 @@ const AboutPage: React.FC = () => {
       </header>
 
       {/* ── Content ── */}
-      <main className="pt-24 container mx-auto px-6 md:px-12 lg:px-24">
-        <About />
+      <main className="pt-24 container mx-auto px-6 md:px-12 lg:px-24 page-enter">
+        <About isPage />
       </main>
 
       <Footer />
