@@ -597,14 +597,11 @@
 
   .skillset-card__toggle-icon {
     display: none;
-    font-size: 1.8rem;
-    line-height: 1;
     color: rgba(255, 255, 255, 0.6);
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
+    transition: color 0.3s ease;
     flex-shrink: 0;
     user-select: none;
+    line-height: 0;
   }
 
   /* ===== SkillSet mobile accordion (≤ 767px) ===== */
@@ -613,7 +610,8 @@
     .skillset-card {
       margin-left: 0 !important;
       margin-top: 0 !important;
-      position: static !important;
+      position: relative !important;
+      z-index: auto !important;
       max-width: 100%;
       min-height: unset;
       padding-bottom: 1.5rem;
@@ -659,7 +657,14 @@
       color: #000000;
     }
     .skillset-card[data-open="true"] .skillset-card__toggle-icon {
-      color: rgba(0, 0, 0, 0.6);
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    /* Hover states for desktop that bleed onto mobile touch — neutralise */
+    .skillset-card:hover .skillset-card__body {
+      grid-template-rows: 0fr;
+      opacity: 0;
+      margin-top: 0;
     }
 
     /* Expand body when open */
@@ -752,22 +757,7 @@
     color: #1a1a1a;
   }
 
-  /* ===== LatestWork card hover effects ===== */
-
-  /* 2. Image zoom — starts at 1.08, pulls back to 1 on card hover */
-  .lw-img {
-    transform: scale(1.08);
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .lw-card:hover .lw-img {
-    transform: scale(1);
-  }
-
-  /* 3. Dark overlay fade on card hover */
-  .lw-card:hover .card-overlay {
-    opacity: 1;
-  }
+  /* LatestWork hover effects removed */
   /* ===== Project card animations ===== */
 
   /* 1. Scroll reveal — hidden by default */

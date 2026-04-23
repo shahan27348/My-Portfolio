@@ -108,7 +108,51 @@ const SkillSet: React.FC = () => {
                 </h3>
                 {/* Plus / minus icon — visible only on mobile */}
                 <span className="skillset-card__toggle-icon">
-                  {openIndex === i ? "×" : "+"}
+                  {openIndex === i ? (
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="10.5"
+                        stroke="currentColor"
+                        strokeOpacity="0.5"
+                      />
+                      <rect
+                        x="5"
+                        y="10"
+                        width="12"
+                        height="2"
+                        rx="1"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  ) : (
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="10.5"
+                        stroke="currentColor"
+                        strokeOpacity="0.5"
+                      />
+                      <rect
+                        x="10"
+                        y="5"
+                        width="2"
+                        height="12"
+                        rx="1"
+                        fill="currentColor"
+                      />
+                      <rect
+                        x="5"
+                        y="10"
+                        width="12"
+                        height="2"
+                        rx="1"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  )}
                 </span>
               </div>
 

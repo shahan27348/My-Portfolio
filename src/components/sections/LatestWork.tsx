@@ -1,9 +1,9 @@
-﻿import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 const WORK_ITEMS = [
   {
@@ -36,6 +36,178 @@ const WORK_ITEMS = [
   },
 ];
 
+// ── Horizontal card (work page) ───────────────────────────────────────────────
+const HorizontalCard: React.FC<{
+  item: (typeof WORK_ITEMS)[0];
+  index: number;
+  total: number;
+}> = ({ item, index, total }) => (
+  <div
+    className="relative flex-shrink-0 overflow-hidden"
+    style={{ width: "100vw", height: "100vh" }}
+  >
+    {/* Background image */}
+    <img
+      src={item.image}
+      alt={item.title}
+      className="absolute inset-0 w-full h-full object-cover scale-105"
+    />
+
+    {/* Gradient overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+    {/* Content — bottom-left */}
+    <div className="absolute inset-0 flex flex-col justify-end px-12 md:px-20 lg:px-28 pb-20 z-10">
+      {/* Counter */}
+      <span className="text-white/30 text-xs uppercase tracking-[0.3em] mb-6 font-mono">
+        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </span>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-3 mb-5">
+        {item.tags.map((tag) => (
+          <span
+            key={tag}
+            className="px-4 py-1.5 rounded-full border border-white/25 text-white/60
+                       text-[11px] uppercase tracking-widest backdrop-blur-sm"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {/* Title */}
+      <h3
+        className="uppercase text-white leading-none tracking-tight mb-8"
+        style={{
+          fontFamily: "'League Gothic', sans-serif",
+          fontSize: "clamp(3rem, 8vw, 7rem)",
+        }}
+      >
+        {item.title}
+      </h3>
+
+      {/* CTA */}
+      <a
+        href={item.url}
+        className="group inline-flex items-center gap-4 text-white/50 hover:text-white
+                   text-xs uppercase tracking-[0.2em] transition-colors duration-300 w-fit"
+      >
+        <span>View Project</span>
+        <span
+          className="block h-px bg-white/30 group-hover:bg-white
+                     transition-all duration-500 ease-out"
+          style={{ width: "2rem" }}
+        />
+      </a>
+    </div>
+  </div>
+);
+
+// ── Horizontal scroll section (work page) ────────────────────────────────────
+const HorizontalWorkSection: React.FC = () => {
+  const introRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    const intro = introRef.current;
+    if (!section || !track || !intro) return;
+
+    const ctx = gsap.context(() => {
+      // Animate intro heading line by line on scroll
+      gsap.from(intro.querySelectorAll(".intro-line"), {
+        y: 80,
+        opacity: 0,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: intro,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      // Horizontal pin — only the cards track
+      gsap.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          pinType: "transform",
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <>
+      {/* ── Vertical intro ─────────────────────────────────────────────── */}
+      <div
+        ref={introRef}
+        className="flex flex-col justify-end px-12 md:px-20 lg:px-28 pb-24 pt-32"
+        style={{ minHeight: "100vh" }}
+      >
+        {/* Label */}
+        <p className="intro-line text-white/30 text-xs uppercase tracking-[0.35em] mb-8 font-mono">
+          Selected works · {WORK_ITEMS.length} projects
+        </p>
+
+        {/* Heading — each word is an animated line */}
+        <h2
+          className="uppercase leading-none tracking-tight text-white overflow-hidden"
+          style={{
+            fontFamily: "'League Gothic', sans-serif",
+            fontSize: "clamp(4.5rem, 15vw, 10rem)",
+          }}
+        >
+          <span className="intro-line block">My</span>
+          <span className="intro-line block">Latest</span>
+          <span className="intro-line block">Work</span>
+        </h2>
+
+        {/* Scroll hint */}
+        <p className="intro-line mt-72 text-white/25 text-xs uppercase tracking-[0.3em]">
+          Scroll to explore →
+        </p>
+      </div>
+
+      {/* ── Pinned horizontal cards ─────────────────────────────────────── */}
+      <div ref={sectionRef} style={{ height: "100vh", width: "100%" }}>
+        <div
+          ref={trackRef}
+          className="flex h-full"
+          style={{
+            width: `${WORK_ITEMS.length * 100}vw`,
+            willChange: "transform",
+          }}
+        >
+          {/* ── Work cards ──────────────────────────────────── */}
+          {WORK_ITEMS.map((item, i) => (
+            <HorizontalCard
+              key={item.title}
+              item={item}
+              index={i}
+              total={WORK_ITEMS.length}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+// ── Vertical stacking card (home page) ──────────────────────────────────────
 const WorkItem: React.FC<{
   item: (typeof WORK_ITEMS)[0];
   index: number;
@@ -122,13 +294,12 @@ const WorkItem: React.FC<{
         <img
           src={item.image}
           alt={item.title}
-          className="lw-img absolute inset-0 w-full h-full object-cover"
-          style={{ transformOrigin: "center center" }}
+          className="absolute inset-0 w-full h-full object-cover"
         />
       </div>
 
       {/* 3. Dark overlay â€” fades in on card hover */}
-      <div className="card-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
       {/* Clickable content area */}
       <a
@@ -136,10 +307,8 @@ const WorkItem: React.FC<{
         className="absolute inset-0 z-10 flex items-center text-center
                    px-10 md:px-16 lg:px-24 pb-14"
       >
-        {/* Scroll-reveal wrapper (GSAP targets this) */}
         <div ref={infoWrapRef} className="w-full">
-          {/* 4. Text slide-up â€” CSS hover on .lw-card triggers .lw-info */}
-          <div className="lw-info">
+          <div>
             <div className="flex flex-wrap justify-center gap-3 mb-4">
               {item.tags.map((tag) => (
                 <span
@@ -152,18 +321,13 @@ const WorkItem: React.FC<{
               ))}
             </div>
             <h3
-              className="group/title relative inline-block uppercase text-white
-                         leading-none tracking-tight m-0 p-0 cursor-pointer"
+              className="uppercase text-white leading-none tracking-tight m-0 p-0"
               style={{
                 fontFamily: "'League Gothic', sans-serif",
                 fontSize: "clamp(2.5rem, 7vw, 5rem)",
               }}
             >
               {item.title}
-              <span
-                className="absolute bottom-[-10px] left-0 h-[10px] bg-white 
-                           w-0 group-hover/title:w-full transition-all duration-500 ease-out"
-              />
             </h3>
           </div>
         </div>
@@ -172,7 +336,13 @@ const WorkItem: React.FC<{
   );
 };
 
-const LatestWork: React.FC = () => {
+const LatestWork: React.FC<{ horizontalScroll?: boolean }> = ({
+  horizontalScroll = false,
+}) => {
+  if (horizontalScroll) {
+    return <HorizontalWorkSection />;
+  }
+
   return (
     <AnimatedSection>
       <section id="work">

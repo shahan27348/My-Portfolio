@@ -7,7 +7,7 @@ const WorkPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-primary text-slate-light min-h-screen antialiased overflow-x-hidden">
+    <div className="bg-primary text-slate-light antialiased">
       {/* ── Top bar ── */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-16 lg:px-24 py-6">
         {/* Logo */}
@@ -34,8 +34,8 @@ const WorkPage: React.FC = () => {
       </header>
 
       {/* ── Content ── */}
-      <main className="pt-24 page-enter">
-        <LatestWork />
+      <main className="page-enter">
+        <LatestWork horizontalScroll />
       </main>
 
       <Footer />
