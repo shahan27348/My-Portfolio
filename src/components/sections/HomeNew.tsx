@@ -91,9 +91,7 @@ const Home: React.FC = () => {
                 className="inline-block overflow-hidden align-bottom"
                 style={{ marginRight: "0.12em" }}
               >
-                <span className="hw1 inline-block bg-gradient-to-b from-[#e4e4e4] to-[#555] bg-clip-text text-transparent">
-                  {word}
-                </span>
+                <span className="hw1 inline-block text-[#e4e4e4]">{word}</span>
               </span>
             ))}
           </h1>
@@ -134,9 +132,7 @@ const Home: React.FC = () => {
                 className="inline-block overflow-hidden align-bottom"
                 style={{ marginRight: "0.12em" }}
               >
-                <span className="hw2 inline-block bg-gradient-to-b from-[#e4e4e4] to-[#555] bg-clip-text text-transparent">
-                  {word}
-                </span>
+                <span className="hw2 inline-block text-[#e4e4e4]">{word}</span>
               </span>
             ))}
           </h2>

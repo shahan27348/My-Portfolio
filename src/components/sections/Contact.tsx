@@ -95,7 +95,7 @@ const Contact: React.FC = () => {
           {/* ── Left: heading ── */}
           <div className="flex-1 flex flex-col justify-between min-h-[340px]">
             <h2
-              className="bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent uppercase leading-[0.88] contact-heading"
+              className="text-[#e4e4e4] uppercase leading-[0.88] contact-heading"
               style={{
                 fontFamily: "'League Gothic', sans-serif",
                 fontSize: "clamp(4rem, 12vw, 13rem)",

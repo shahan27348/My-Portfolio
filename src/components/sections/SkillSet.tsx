@@ -62,7 +62,7 @@ const SkillSet: React.FC = () => {
         {/* Heading row */}
         <div className="flex flex-wrap items-start justify-between gap-8 mb-16">
           <h2
-            className="uppercase bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent leading-none tracking-tight m-0"
+            className="uppercase text-[#e4e4e4] leading-none tracking-tight m-0"
             style={{
               fontFamily: "'League Gothic', sans-serif",
               fontSize: "clamp(3rem, 9vw, 9rem)",

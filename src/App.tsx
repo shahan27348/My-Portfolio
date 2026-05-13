@@ -73,7 +73,6 @@ const App: React.FC = () => {
                     <main className="container mx-auto px-6 md:px-12 lg:px-24">
                       <About />
                     </main>
-                    {/* <LatestWork /> */}
                     <LatestWork/>
                     <div className="container mx-auto px-6 md:px-12 lg:px-24">
                       <SkillSet />

@@ -4,7 +4,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
   return (
     <h2
-      className="uppercase bg-gradient-to-b from-[#e4e4e4] to-black bg-clip-text text-transparent leading-none tracking-tight mb-10"
+      className="uppercase text-[#e4e4e4] leading-none tracking-tight mb-10"
       style={{
         fontFamily: "'League Gothic', sans-serif",
         fontSize: "clamp(2.8rem, 7vw, 7rem)",
@@ -17,7 +17,7 @@ const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
 
 const SubHeading: React.FC<{ title: string }> = ({ title }) => (
   <h3
-    className="uppercase bg-gradient-to-b from-[#e4e4e4] to-[#666] bg-clip-text text-transparent leading-none tracking-tight mb-6"
+    className="uppercase text-[#e4e4e4] leading-none tracking-tight mb-6"
     style={{
       fontFamily: "'League Gothic', sans-serif",
       fontSize: "clamp(2rem, 5vw, 4rem)",
