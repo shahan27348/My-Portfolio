@@ -4,31 +4,37 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WORK_ITEMS = [
+type TagItem = { label: string; href?: string };
+type WorkItem = { title: string; tags: TagItem[]; image: string; url: string };
+
+const WORK_ITEMS: WorkItem[] = [
   {
-    title: "E-Commerce Platform",
-    tags: ["Full Stack", "Next.js"],
+    title: "Vibe Vault",
+    tags: [
+      { label: "GitHub", href: "https://github.com/shahan27348/Vibe-Vault" },
+      { label: "Live Preview", href: "https://vibe-vault-henna.vercel.app/" },
+    ],
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1400&q=80",
-    url: "#",
+    url: "https://vibe-vault-henna.vercel.app/",
   },
   {
     title: "Project Management Tool",
-    tags: ["React", "Firebase"],
+    tags: [{ label: "React" }, { label: "Firebase" }],
     image:
       "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1400&q=80",
     url: "#",
   },
   {
     title: "Data Dashboard",
-    tags: ["TypeScript", "GraphQL"],
+    tags: [{ label: "TypeScript" }, { label: "GraphQL" }],
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
     url: "#",
   },
   {
     title: "Portfolio Website",
-    tags: ["React", "Tailwind CSS"],
+    tags: [{ label: "React" }, { label: "Tailwind CSS" }],
     image:
       "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1400&q=80",
     url: "#",
@@ -64,15 +70,29 @@ const HorizontalCard: React.FC<{
 
       {/* Tags */}
       <div className="flex flex-wrap gap-3 mb-5">
-        {item.tags.map((tag) => (
-          <span
-            key={tag}
-            className="px-4 py-1.5 rounded-full border border-white/25 text-white/60
-                       text-[11px] uppercase tracking-widest backdrop-blur-sm"
-          >
-            {tag}
-          </span>
-        ))}
+        {item.tags.map((tag) =>
+          tag.href ? (
+            <a
+              key={tag.label}
+              href={tag.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 rounded-full border border-white/25 text-white/60
+                         text-[11px] uppercase tracking-widest backdrop-blur-sm
+                         hover:border-white/60 hover:text-white transition-colors duration-300"
+            >
+              {tag.label}
+            </a>
+          ) : (
+            <span
+              key={tag.label}
+              className="px-4 py-1.5 rounded-full border border-white/25 text-white/60
+                         text-[11px] uppercase tracking-widest backdrop-blur-sm"
+            >
+              {tag.label}
+            </span>
+          ),
+        )}
       </div>
 
       {/* Title */}
@@ -224,8 +244,6 @@ const StackSection: React.FC = () => {
     cards.forEach((card, i) => {
       if (i > 0) gsap.set(card, { yPercent: 100 });
     });
-    // All depth overlays start invisible
-    overlays.forEach((ov) => gsap.set(ov, { opacity: 0 }));
 
     // Single timeline drives ALL animations — no property conflicts
     const tl = gsap.timeline({
@@ -285,7 +303,7 @@ const StackSection: React.FC = () => {
               overlaysRef.current[i] = el;
             }}
             className="absolute inset-0 bg-black pointer-events-none"
-            style={{ zIndex: 2 }}
+            style={{ zIndex: 2, opacity: 0 }}
           />
 
           {/* Counter — top right */}
@@ -297,37 +315,45 @@ const StackSection: React.FC = () => {
             {String(WORK_ITEMS.length).padStart(2, "0")}
           </span>
 
-          {/* Content — bottom left */}
+          {/* Content — centered */}
           <div
-            className="absolute inset-0 flex flex-col justify-end px-10 md:px-16 lg:px-24 pb-16"
+            className="absolute inset-0 flex flex-col justify-center items-center text-center px-10 md:px-16 lg:px-24"
             style={{ zIndex: 3 }}
           >
-            <div className="flex flex-wrap gap-3 mb-4">
-              {item.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-4 py-1.5 rounded-full border border-white/25 text-white/60 text-[11px] uppercase tracking-widest backdrop-blur-sm"
-                >
-                  {tag}
-                </span>
-              ))}
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
+              {item.tags.map((tag) =>
+                tag.href ? (
+                  <a
+                    key={tag.label}
+                    href={tag.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-1.5 rounded-full border border-white/25 text-white/60 text-[11px] uppercase tracking-widest backdrop-blur-sm hover:border-white/60 hover:text-white transition-colors duration-300"
+                  >
+                    {tag.label}
+                  </a>
+                ) : (
+                  <span
+                    key={tag.label}
+                    className="px-4 py-1.5 rounded-full border border-white/25 text-white/60 text-[11px] uppercase tracking-widest backdrop-blur-sm"
+                  >
+                    {tag.label}
+                  </span>
+                ),
+              )}
             </div>
-            <h3
-              className="uppercase text-white leading-none tracking-tight mb-8"
-              style={{
-                fontFamily: "'League Gothic', sans-serif",
-                fontSize: "clamp(2.5rem, 7vw, 6rem)",
-              }}
-            >
-              {item.title}
-            </h3>
-            <a
-              href={item.url}
-              className="group inline-flex items-center gap-4 text-white/50 hover:text-white text-xs uppercase tracking-[0.2em] transition-colors duration-300 w-fit"
-            >
-              <span>View Project</span>
-              <span className="block h-px bg-white/30 group-hover:bg-white transition-all duration-500 ease-out w-8" />
-            </a>
+            <div className="group relative inline-block">
+              <h3
+                className="uppercase text-white leading-none tracking-tight"
+                style={{
+                  fontFamily: "'League Gothic', sans-serif",
+                  fontSize: "clamp(2.5rem, 7vw, 6rem)",
+                }}
+              >
+                {item.title}
+              </h3>
+              <span className="absolute bottom-0 left-0 h-[10px] w-0 bg-white group-hover:w-full transition-[width] duration-500 ease-out" />
+            </div>
           </div>
         </div>
       ))}
