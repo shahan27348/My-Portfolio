@@ -14,8 +14,8 @@ export { SkillCategory } from "@/types";
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Junior Full Stack Developer",
-    company: "Ichonic Inc.",
+    role: "Full Stack Developer",
+    company: "Ichonic",
     duration: "Sept 2023 - Present",
     description: [
       "Led the development of a new design system using React, TypeScript, and Storybook, improving developer productivity by 30%.",
@@ -68,31 +68,31 @@ export const SKILLS: Skill[] = [
 
 export const PROJECTS: Project[] = [
   {
-    title: "E-commerce Platform",
+    title: "Proofy Reviews",
     description:
-      "A full-featured e-commerce site with product browsing, a shopping cart, and a checkout process, built with Next.js and Stripe for payments.",
-    tags: ["Next.js", "React", "TypeScript", "Stripe", "Tailwind CSS"],
-    imageUrl: "https://picsum.photos/seed/project1/400/300",
-    liveUrl: "#",
+      "A Wix App Market app focused on collecting and showcasing customer reviews with a clean, conversion-focused experience.",
+    tags: ["React", "TypeScript", "Wix", "Tailwind CSS"],
+    imageUrl: "/images/proofy-reviews.png",
+    liveUrl: "https://www.wix.com/app-market/ichnoic-reviews-app?searchLocation=search-bar-homepage",
     githubUrl: "#",
   },
   {
-    title: "Project Management Tool",
+    title: "Page Speed Booster",
     description:
-      "A Kanban-style project management application with drag-and-drop functionality, real-time collaboration features using Firebase.",
-    tags: ["React", "Firebase", "Redux Toolkit", "Styled Components"],
-    imageUrl: "https://picsum.photos/seed/project2/400/300",
-    liveUrl: "#",
+      "A Wix App Market app built to help merchants improve storefront performance and deliver a faster user experience.",
+    tags: ["React", "TypeScript", "Wix", "Performance"],
+    imageUrl: "/images/page-speed-booster.png",
+    liveUrl: "https://www.wix.com/app-market/page-speed-booster-ichonic?appIndex=17&referral=search-result&referralSectionName=page%20speed%20booster",
     githubUrl: "#",
   },
   {
-    title: "Data Visualization Dashboard",
+    title: "Vibe Vault",
     description:
-      "A dashboard for visualizing complex datasets with interactive charts and graphs, built with React and D3.js.",
-    tags: ["React", "D3.js", "TypeScript", "GraphQL"],
+      "A music-focused web app with a polished UI and smooth browsing experience, designed to feel modern and engaging.",
+    tags: ["React", "TypeScript", "UI/UX", "Vercel"],
     imageUrl: "https://picsum.photos/seed/project3/400/300",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://vibe-vault-henna.vercel.app/",
+    githubUrl: "https://github.com/shahan27348/Vibe-Vault",
   },
   {
     title: "Portfolio Website",

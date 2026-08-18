@@ -49,8 +49,10 @@ const About: React.FC<AboutProps> = ({ isPage = false }) => {
                 Fast-forward to today, and I've had the privilege of working at
                 a start-up. My main focus these days is building accessible,
                 inclusive products and digital experiences at{" "}
-                <span className="text-accent">Ichonic Inc</span> for a variety
-                of clients.
+                <span className="text-accent">Ichonic</span> for a variety
+                of clients. I'm currently{" "}
+                <span className="text-accent">open to work</span> and available
+                to take on new projects — feel free to reach out!
               </p>
               <p>
                 I'm a firm believer in continuous learning and I'm always on the
@@ -127,9 +129,9 @@ const About: React.FC<AboutProps> = ({ isPage = false }) => {
                     2024 – Present
                   </p>
                   <p className="text-[#e4e4e4] font-semibold text-sm md:text-base">
-                    Junior Full Stack Developer -Intern
+                    Full Stack Developer
                   </p>
-                  <p className="text-[#888] text-sm mt-1">Ichonic Inc</p>
+                  <p className="text-[#888] text-sm mt-1">Ichonic</p>
                   <p className="text-[#666] text-xs mt-2 leading-relaxed max-w-sm">
                     Built and shipped 3 apps on the Wix App Market. Led
                     front-end development using React, Next.js, and TypeScript

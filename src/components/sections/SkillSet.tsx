@@ -13,7 +13,6 @@ const SKILL_CARDS = [
       "Next.js",
       "TypeScript",
       "Redux",
-      "Tailwind CSS",
       "HTML5 / CSS3",
     ],
   },
@@ -23,7 +22,14 @@ const SKILL_CARDS = [
     accent: "#60a5fa",
     description:
       "Speeding up delivery with battle-tested component systems while keeping designs consistent and on-brand.",
-    items: ["Material UI", "shadcn/ui", "Ant Design", "Bootstrap", "Sass"],
+    items: [
+      "Material UI",
+      "shadcn/ui",
+      "Ant Design",
+      "Bootstrap",
+      "Sass",
+      "Tailwind CSS",
+    ],
   },
   {
     number: "03.",
@@ -31,7 +37,7 @@ const SKILL_CARDS = [
     accent: "#f472b6",
     description:
       "Designing and building RESTful APIs, real-time services, and scalable server-side architecture.",
-    items: ["Node.js", "Express.js", "GraphQL", "REST APIs", "JWT / Auth"],
+    items: ["Node.js", "Express.js", "JWT / Auth"],
   },
   {
     number: "04.",
@@ -39,7 +45,7 @@ const SKILL_CARDS = [
     accent: "#fb923c",
     description:
       "Modelling data for both relational and document-based systems, picking the right tool for each use case.",
-    items: ["MongoDB", "PostgreSQL", "Supabase", "NeonDB", "Firebase"],
+    items: ["MongoDB", "Supabase", "NeonDB"],
   },
   {
     number: "05.",

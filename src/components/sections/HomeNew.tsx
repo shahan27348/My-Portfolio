@@ -101,8 +101,8 @@ const Home: React.FC = () => {
             className="hero-desc-1 text-sm md:text-base text-[#888]
                         leading-relaxed max-w-[250px] mt-2 shrink-0 self-start"
           >
-            I've been building full-stack digital products for 1+ years. I craft
-            experiences that are useful &amp; enjoyable for the final user.
+            Around 3 years of experience as a Full Stack Developer, I build
+            scalable, production-ready products that deliver real value to users.
           </p>
         </div>
 
@@ -113,9 +113,9 @@ const Home: React.FC = () => {
             className="hero-desc-2 text-sm md:text-base text-[#888]
                         leading-relaxed max-w-[230px] shrink-0 self-end"
           >
-            I've worked on ambitious products at Ichonic&nbsp;Inc — including 3
-            apps on the Wix App Market — and I enjoy building accessible,
-            human-centered interfaces.
+            Working as a Full Stack Engineer at Ichonic since Feb 2024,
+            I've built 3 apps for the Wix App Market — delivering scalable,
+            human-centered products from the ground up.
           </p>
 
           {/* Role headline */}

@@ -18,6 +18,10 @@ const SOCIAL_LINKS = [
 
 const Footer: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const openEmailComposer = () => {
+    window.location.href =
+      "mailto:muhammadshahan059@gmail.com?subject=Project%20Inquiry";
+  };
 
   const navigate = useNavigate();
 
@@ -39,8 +43,9 @@ const Footer: React.FC = () => {
         </p>
 
         <div className="flex flex-wrap items-start justify-between gap-6">
-          <a
-            href="mailto:muhammadshahan059@gmail.com"
+          <button
+            type="button"
+            onClick={openEmailComposer}
             className="footer-cta-link group/cta"
             style={{
               fontFamily: "'League Gothic', sans-serif",
@@ -54,7 +59,7 @@ const Footer: React.FC = () => {
             <span className="footer-cta-clone " aria-hidden>
               Drop Me a Line
             </span>
-          </a>
+          </button>
 
           <p
             className="text-[#1A1A1A] text-lg uppercase self-end mb-4 text-right leading-loose"
@@ -63,8 +68,6 @@ const Footer: React.FC = () => {
             Available for
             <br />
             new projects
-            <br />
-            from March&nbsp;2025
           </p>
         </div>
       </div>

@@ -110,8 +110,6 @@ const Contact: React.FC = () => {
               style={{ fontFamily: "'League Gothic', sans-serif" }}
             >
               *&nbsp; Available for new projects
-              <br />
-              from March&nbsp;2025
             </p>
           </div>
 

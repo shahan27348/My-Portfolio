@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
       <div className="relative z-10 flex items-center justify-between px-8 md:px-16 lg:px-24 py-6">
         {/* Logo */}
         <a
-          href="/home"
+          href="/"
           className={`text-2xl font-black uppercase tracking-[0.2em]
             transition-colors duration-300 ${barColor}`}
         >

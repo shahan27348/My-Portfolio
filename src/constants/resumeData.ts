@@ -30,7 +30,7 @@ export const RESUME_DATA = {
   workExperience: [
     {
       position: "Associate Full Stack Developer",
-      company: "Ichonic Inc.",
+      company: "Ichonic",
       location: "Remote/onsite",
       duration: "May 2023 - Present",
       responsibilities: [

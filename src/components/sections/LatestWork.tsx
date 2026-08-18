@@ -1,4 +1,4 @@
-﻿import React, { useRef, useEffect } from "react";
+﻿import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,6 +9,28 @@ type WorkItem = { title: string; tags: TagItem[]; image: string; url: string };
 
 const WORK_ITEMS: WorkItem[] = [
   {
+    title: "Proofy Reviews",
+    tags: [
+      {
+        label: "Get the App",
+        href: "https://www.wix.com/app-market/ichnoic-reviews-app?searchLocation=search-bar-homepage",
+      },
+    ],
+    image: "/images/proofy-reviews.png",
+    url: "https://www.wix.com/app-market/ichnoic-reviews-app?searchLocation=search-bar-homepage",
+  },
+  {
+    title: "Page Speed Booster",
+    tags: [
+      {
+        label: "Get the App",
+        href: "https://www.wix.com/app-market/page-speed-booster-ichonic?appIndex=17&referral=search-result&referralSectionName=page%20speed%20booster",
+      },
+    ],
+    image: "/images/page-speed-booster.png",
+    url: "https://www.wix.com/app-market/page-speed-booster-ichonic?appIndex=17&referral=search-result&referralSectionName=page%20speed%20booster",
+  },
+  {
     title: "Vibe Vault",
     tags: [
       { label: "GitHub", href: "https://github.com/shahan27348/Vibe-Vault" },
@@ -17,20 +39,6 @@ const WORK_ITEMS: WorkItem[] = [
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1400&q=80",
     url: "https://vibe-vault-henna.vercel.app/",
-  },
-  {
-    title: "Project Management Tool",
-    tags: [{ label: "React" }, { label: "Firebase" }],
-    image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1400&q=80",
-    url: "#",
-  },
-  {
-    title: "Data Dashboard",
-    tags: [{ label: "TypeScript" }, { label: "GraphQL" }],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
-    url: "#",
   },
   {
     title: "Portfolio Website",
@@ -123,6 +131,77 @@ const HorizontalCard: React.FC<{
   </div>
 );
 
+const MobileWorkSection: React.FC = () => (
+  <div className="px-6 md:px-10 pb-6 space-y-5">
+    {WORK_ITEMS.map((item, i) => (
+      <article
+        key={item.title}
+        className="relative overflow-hidden rounded-3xl border border-white/10 min-h-[420px]"
+      >
+        <img
+          src={item.image}
+          alt={item.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+
+        <div className="relative z-10 flex h-full min-h-[420px] flex-col justify-end p-6">
+          <span className="mb-4 text-white/35 text-xs uppercase tracking-[0.3em] font-mono">
+            {String(i + 1).padStart(2, "0")} /{" "}
+            {String(WORK_ITEMS.length).padStart(2, "0")}
+          </span>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {item.tags.map((tag) =>
+              tag.href ? (
+                <a
+                  key={tag.label}
+                  href={tag.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full border border-white/25 text-white/70
+                             text-[10px] uppercase tracking-widest backdrop-blur-sm"
+                >
+                  {tag.label}
+                </a>
+              ) : (
+                <span
+                  key={tag.label}
+                  className="px-3 py-1.5 rounded-full border border-white/25 text-white/70
+                             text-[10px] uppercase tracking-widest backdrop-blur-sm"
+                >
+                  {tag.label}
+                </span>
+              ),
+            )}
+          </div>
+
+          <h3
+            className="uppercase text-white leading-none tracking-tight mb-4"
+            style={{
+              fontFamily: "'League Gothic', sans-serif",
+              fontSize: "clamp(2.5rem, 12vw, 4.5rem)",
+            }}
+          >
+            {item.title}
+          </h3>
+
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 text-white/70 hover:text-white
+                       text-xs uppercase tracking-[0.2em] transition-colors duration-300 w-fit"
+          >
+            <span>View Project</span>
+            <span className="block h-px w-8 bg-white/40" />
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+);
+
 // â”€â”€ Horizontal scroll section (work page) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const HorizontalWorkSection: React.FC = () => {
   const introRef = useRef<HTMLDivElement>(null);
@@ -191,7 +270,6 @@ const HorizontalWorkSection: React.FC = () => {
           }}
         >
           <span className="intro-line block">My</span>
-          <span className="intro-line block">Latest</span>
           <span className="intro-line block">Work</span>
         </h2>
 
@@ -364,6 +442,52 @@ const StackSection: React.FC = () => {
 const LatestWork: React.FC<{ horizontalScroll?: boolean }> = ({
   horizontalScroll = false,
 }) => {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768,
+  );
+
+  useEffect(() => {
+    const checkViewport = () => setIsMobile(window.innerWidth < 768);
+
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+
+    return () => window.removeEventListener("resize", checkViewport);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <section id="work">
+        <div className="px-6 py-16 pb-10">
+          <h2
+            className="uppercase text-[#e4e4e4] leading-none tracking-tight m-0"
+            style={{
+              fontFamily: "'League Gothic', sans-serif",
+              fontSize: "clamp(3rem, 16vw, 5rem)",
+            }}
+          >
+            My
+            <br />
+            Work
+          </h2>
+        </div>
+
+        <MobileWorkSection />
+
+        {!horizontalScroll && (
+          <div className="flex justify-center py-16 px-6">
+            <a href="/work">
+              <button className="lw-btn w-full max-w-xl">
+                <span className="lw-btn__fill" />
+                <span className="lw-btn__text">See More</span>
+              </button>
+            </a>
+          </div>
+        )}
+      </section>
+    );
+  }
+
   if (horizontalScroll) {
     return <HorizontalWorkSection />;
   }
@@ -381,7 +505,7 @@ const LatestWork: React.FC<{ horizontalScroll?: boolean }> = ({
         >
           My
           <br />
-          Latest Work
+          Work
         </h2>
       </div>
 
