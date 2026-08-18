@@ -14,6 +14,7 @@ import LoadingSequence from "@/components/ui/LoadingSequence";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import LatestWork from "@/components/sections/LatestWork";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 const ChatAssistant = lazy(() => import("@/components/ui/ChatAssistant"));
 
@@ -78,6 +79,7 @@ const App: React.FC = () => {
                       <SkillSet />
                     </div>
                     <Footer />
+                    <WhatsAppButton />
                     <ScrollToTopButton />
                     <Suspense fallback={null}>
                       <ChatAssistant />
