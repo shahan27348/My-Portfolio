@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const PRIMARY_LINKS = [
   { name: "Home", href: "/" },
-  { name: "Projects", href: "/work" },
+  { name: "Products", href: "/work" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];

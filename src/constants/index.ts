@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
       "A Wix App Market app focused on collecting and showcasing customer reviews with a clean, conversion-focused experience.",
     tags: ["React", "TypeScript", "Wix", "Tailwind CSS"],
     imageUrl: "/images/proofy-reviews.png",
-    liveUrl: "https://www.wix.com/app-market/ichnoic-reviews-app?searchLocation=search-bar-homepage",
+    liveUrl: "/products/proofy-reviews",
     githubUrl: "#",
   },
   {
@@ -82,7 +82,7 @@ export const PROJECTS: Project[] = [
       "A Wix App Market app built to help merchants improve storefront performance and deliver a faster user experience.",
     tags: ["React", "TypeScript", "Wix", "Performance"],
     imageUrl: "/images/page-speed-booster.png",
-    liveUrl: "https://www.wix.com/app-market/page-speed-booster-ichonic?appIndex=17&referral=search-result&referralSectionName=page%20speed%20booster",
+    liveUrl: "/products/page-speed-booster",
     githubUrl: "#",
   },
   {
@@ -90,16 +90,18 @@ export const PROJECTS: Project[] = [
     description:
       "A music-focused web app with a polished UI and smooth browsing experience, designed to feel modern and engaging.",
     tags: ["React", "TypeScript", "UI/UX", "Vercel"],
-    imageUrl: "https://picsum.photos/seed/project3/400/300",
-    liveUrl: "https://vibe-vault-henna.vercel.app/",
+    imageUrl:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1400&q=80",
+    liveUrl: "/products/vibe-vault",
     githubUrl: "https://github.com/shahan27348/Vibe-Vault",
   },
   {
-    title: "Portfolio Website",
+    title: "LoupeColorpicker",
     description:
-      "My personal portfolio site (the one you are looking at!) to showcase my work and skills. Built with React and Tailwind CSS.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
-    imageUrl: "https://picsum.photos/seed/project4/400/300",
+      "A Chrome extension for precise loupe-style color picking from any webpage, with a privacy-first design.",
+    tags: ["JavaScript", "Chrome Extension", "Manifest V3"],
+    imageUrl: "/images/loupe-colorpicker.png",
+    liveUrl: "/products/loupe-colorpicker",
     githubUrl: "#",
   },
 ];

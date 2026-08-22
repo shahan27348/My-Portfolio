@@ -8,6 +8,8 @@ import SkillSet from "@/components/sections/SkillSet";
 import ContactPage from "@/pages/ContactPage";
 import AboutPage from "@/pages/AboutPage";
 import WorkPage from "@/pages/WorkPage";
+import ProductDetailPage from "@/pages/ProductDetailPage";
+import LoupePrivacyPage from "@/pages/LoupePrivacyPage";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingSequence from "@/components/ui/LoadingSequence";
@@ -53,6 +55,15 @@ const App: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
+          <Route
+            path="/products/loupe-colorpicker/privacypolicy"
+            element={<LoupePrivacyPage />}
+          />
+          <Route path="/products/:slug" element={<ProductDetailPage />} />
+          <Route
+            path="/loupe-privacy"
+            element={<LoupePrivacyPage />}
+          />
 
           {/* ── Main portfolio ── */}
           <Route

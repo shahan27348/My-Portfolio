@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
+  { label: "Products", href: "/work" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
